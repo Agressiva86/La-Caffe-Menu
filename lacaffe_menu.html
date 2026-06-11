@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LaCaffé – Menu</title>
+
+<!-- SEO -->
+<meta name="description" content="Menu kawiarni LaCaffé w Łodzi – kawa, matcha, herbaty, śniadania, desery i ciasta. ul. Wileńska 60, Retkinia.">
+<meta name="author" content="LaCaffé">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://agressiva86.github.io/La-Caffe-Menu/lacaffe_menu.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="LaCaffé – Menu | Kawiarnia Łódź">
+<meta property="og:description" content="Odkryj nasze menu – kawa rzemieślnicza z łódzkiej palarni, matcha, śniadania i domowe ciasta. Zapraszamy na ul. Wileńską 60 w Łodzi.">
+<meta property="og:url" content="https://agressiva86.github.io/La-Caffe-Menu/lacaffe_menu.html">
+<meta property="og:image" content="https://agressiva86.github.io/La-Caffe-Menu/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="pl_PL">
+<meta property="og:site_name" content="LaCaffé">
+
+<!-- Twitter / X Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LaCaffé – Menu | Kawiarnia Łódź">
+<meta name="twitter:description" content="Odkryj nasze menu – kawa rzemieślnicza z łódzkiej palarni, matcha, śniadania i domowe ciasta. ul. Wileńska 60, Łódź.">
+<meta name="twitter:image" content="https://agressiva86.github.io/La-Caffe-Menu/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Jost:wght@300;400;500&display=swap');
+
+  :root {
+    --bg:        #f5f0eb;
+    --surface:   #faf7f3;
+    --text:      #75706a;
+    --heading:   #3d3731;
+    --price:     #5c554c;
+    --gold:      #b8925a;
+    --gold-lt:   rgba(184,146,90,.18);
+    --muted:     #a8a098;
+    --border:    rgba(92,85,76,.1);
+    --white:     #fefcf9;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 2.4rem 2rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
+  }
+  .logo-wrap svg { height: 44px; width: auto; display: block; }
+  .logo-wrap svg path { fill: var(--heading); }
+
+  .header-tagline {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: .68rem;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .lang-switch {
+    display: flex; align-items: center;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 2px;
+    gap: 0;
+  }
+  .lang-switch button {
+    background: none; border: none; cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-weight: 500; font-size: .65rem;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--muted); padding: .3rem .9rem;
+    border-radius: 1px;
+    transition: background .2s, color .2s;
+  }
+  .lang-switch button.active {
+    background: var(--heading); color: var(--white);
+  }
+
+  /* ─── TAB ARROWS ─── */
+  .tab-wrap {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: relative; /* for arrow positioning */
+  }
+  .tab-arrow {
+    display: none; /* shown via JS when overflow */
+    position: absolute; top: 0; bottom: 0;
+    width: 36px; z-index: 2;
+    align-items: center; justify-content: center;
+    background: none; border: none; cursor: pointer;
+    color: var(--muted);
+    transition: color .18s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .tab-arrow:hover { color: var(--heading); }
+  .tab-arrow.left  { left: 0;  background: linear-gradient(to right, var(--white) 60%, transparent); }
+  .tab-arrow.right { right: 0; background: linear-gradient(to left,  var(--white) 60%, transparent); }
+  .tab-arrow.hidden { opacity: 0; pointer-events: none; }
+  .tab-arrow svg { flex-shrink: 0; }
+  .tabs {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    scrollbar-width: none;
+    padding: 0 .5rem;
+    justify-content: center;
+    /* prevent wrapping */
+    flex-wrap: nowrap;
+  }
+  @media (max-width: 700px) {
+    .tabs { justify-content: flex-start; }
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex: 0 0 auto;
+    background: none; border: none; cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400; font-size: 13px;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); padding: 1.1rem 1.3rem;
+    white-space: nowrap; border-bottom: 1px solid transparent;
+    transition: color .2s, border-color .2s;
+    /* make sure touch doesn't get swallowed */
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (max-width: 500px) {
+    .tab-btn { font-size: 12px; padding: 1rem .9rem; letter-spacing: .08em; }
+  }
+  .tab-btn:hover { color: var(--heading); }
+  .tab-btn.active { color: var(--heading); border-bottom-color: var(--gold); }
+
+  /* ─── PANELS ─── */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ─── MAIN ─── */
+  main { max-width: 860px; margin: 0 auto; padding: 3.5rem 1.8rem 5rem; }
+
+  /* ─── SECTION ─── */
+  .section { margin-bottom: 4rem; }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.7rem, 4.5vw, 2.4rem);
+    font-weight: 300;
+    font-style: normal;
+    letter-spacing: .01em;
+    color: var(--heading);
+    margin-bottom: 1.6rem;
+    padding-bottom: .7rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .section-title::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -1px;
+    width: 32px; height: 1px;
+    background: var(--gold);
+  }
+
+  /* ─── ITEMS ─── */
+  .items { display: flex; flex-direction: column; }
+  .item {
+    display: flex; justify-content: space-between;
+    align-items: baseline; padding: .9rem 0;
+    border-bottom: 1px solid var(--border); gap: 1.5rem;
+  }
+  .item:last-child { border-bottom: none; }
+
+  .item-name {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500; font-size: 15px;
+    color: var(--heading); flex: 1;
+    letter-spacing: .02em; text-transform: uppercase;
+  }
+  .item-name small {
+    display: block; font-weight: 300; font-size: 13px;
+    color: var(--muted); margin-top: .2rem;
+    font-style: normal; letter-spacing: .01em;
+    text-transform: none;
+  }
+
+  .item-price {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500; font-size: 16px;
+    color: var(--price); white-space: nowrap; flex-shrink: 0;
+    letter-spacing: .03em;
+  }
+  .item-price::after {
+    content: ' zł'; font-size: 16px; font-weight: 400;
+    color: var(--muted); font-family: 'Jost', sans-serif;
+    letter-spacing: .03em;
+  }
+  .item-price.duo { font-size: 15px; }
+
+  /* ─── TWO-COL GRID ─── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 4rem; }
+  @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  /* ─── SUB-LABEL ─── */
+  .sub-label {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400; font-size: .6rem;
+    letter-spacing: .25em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: .8rem; margin-top: .3rem;
+  }
+
+  /* ─── SPECIAL CARDS ─── */
+  .specials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .special-card {
+    background: var(--surface);
+    padding: 1.8rem 1.5rem;
+    position: relative;
+  }
+  .special-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px; background: var(--gold);
+  }
+  .special-card .item-name { color: var(--heading); }
+  .special-card .item-price { display: block; margin-top: 1rem; }
+
+  /* ─── PILLS ─── */
+  .pills { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .pill {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: .5rem 1.1rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px; font-weight: 400;
+    letter-spacing: .1em; text-transform: uppercase;
+    display: flex; align-items: center; gap: .6rem; color: var(--text);
+    transition: background .18s;
+  }
+  .pill:hover { background: var(--gold-lt); }
+  .pill-price {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500; font-size: 13px; color: var(--price);
+  }
+  .pill-price::after {
+    content: ' zł'; font-size: 13px; font-weight: 400;
+    color: var(--muted); font-family: 'Jost', sans-serif;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center; padding: 3.5rem 2rem 3rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+  }
+  footer .f-logo svg { height: 28px; width: auto; margin-bottom: .8rem; }
+  footer .f-logo svg path { fill: var(--muted); }
+  footer .f-tagline {
+    font-family: 'Jost', sans-serif;
+    font-size: .62rem; letter-spacing: .35em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 2rem;
+  }
+  .f-divider {
+    width: 30px; height: 1px;
+    background: var(--gold); margin: 0 auto 2rem;
+    opacity: .5;
+  }
+  .f-contact {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: .6rem 2.2rem; margin-bottom: 2rem;
+  }
+  .f-contact a {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300; font-size: 13px;
+    color: var(--muted);
+    text-decoration: none; display: flex; align-items: center; gap: .5rem;
+    letter-spacing: .04em;
+    transition: color .18s;
+  }
+  .f-contact a:hover { color: var(--heading); }
+  .f-contact a svg { color: var(--gold); flex-shrink: 0; }
+  .f-social {
+    display: flex; justify-content: center; gap: .75rem; margin-bottom: 2rem;
+  }
+  .f-social a {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+    border: 1px solid var(--border); color: var(--muted);
+    text-decoration: none;
+    transition: border-color .18s, color .18s;
+  }
+  .f-social a:hover { border-color: var(--gold); color: var(--gold); }
+  .f-copy {
+    font-family: 'Jost', sans-serif;
+    font-size: .6rem; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--muted); opacity: .5;
+  }
+
+  /* ─── LANGUAGE ─── */
+  [data-lang] { display: none; }
+  .lang-pl [data-lang="pl"] { display: contents; }
+  .lang-en [data-lang="en"] { display: contents; }
+
+  /* ─── INFO CARDS (ciasta, lody) ─── */
+  .info-card {
+    background: var(--surface);
+    border: none;
+    padding: 1.8rem 1.6rem;
+    position: relative;
+    box-shadow: 4px 8px 24px rgba(150,130,105,.18), 2px 4px 8px rgba(150,130,105,.1);
+  }
+  .info-card-title {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500; font-size: 12px;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: .8rem;
+  }
+  .info-card-body {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300; font-size: 14px;
+    color: var(--text); line-height: 1.75;
+  }
+  .info-card-body strong { color: var(--heading); font-weight: 500; }
+  .info-card-sub {
+    margin-top: 1.2rem; padding-top: 1.2rem;
+    border-top: 1px solid var(--border);
+  }
+  .info-card-sub-title {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500; font-size: 12px;
+    letter-spacing: .18em; text-transform: uppercase;
+    color: var(--heading); margin-bottom: .4rem;
+    display: flex; align-items: center; gap: .5rem;
+  }
+
+  @media (max-width: 480px) {
+    .header { padding: 2rem 1.2rem 1.6rem; }
+    main { padding: 2.5rem 1.1rem 4rem; }
+  }
+</style>
+</head>
+<body class="lang-pl">
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo-wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 864.32 222.67" aria-label="LaCaffé">
+      <path d="M519.13,103.69c-45.1,110.79-145.51,21.71-76.92-23.42,21.51-12.55,42.69-7.78,64.7-14.3,9.34-2.77,12.26-5.37,11.1-15.67-2.89-25.77-39.1-17.2-55.42-11.64-5,1.7-19.45,9.2-23,9.1-5.36-.16-12.18-9.03-14.65-13.38-2.04-3.58-2.04-4.49,2.19-6.19,16.84-6.78,52.48-8.33,70.24-5.24,57.25,9.96,35.11,66.57,39.87,107.13.22,1.92,1.22,6.21,2.41,7.59,2.27,2.6,9.22.93,6.3,5.86-.68,1.16-22.98,11.33-24.32,11.22-.88-.07-2.51-.94-2.51-1.55v-49.5ZM518.13,71.7c-15.44,5.45-32.42,4.36-48.05,7.44-43.27,8.54-27.08,69.52,9.04,58.04,20.85-6.62,38.17-44.71,39-65.49Z"/>
+      <path d="M564.13,58.69c5.83-47.55,54.06-66.08,96.55-56.05l.41,3c-7.98,2.2-11.33,11.3-17.67,15.92-35.83-18.35-61.08-4.21-56.29,37.13h73.5l1.32-1.68c7.03-46.64,53.74-63.4,95.65-54.32l.5,2.47-17.52,15.57c-7.63-1.59-13.9-6.22-21.95-7.02-19.18-2.33-31.85,9.04-34.49,27.49,0,0,0,16,0,16l1.5,1.5h51.5v7h-51.5l-1.5,1.5v116c0,.99,2.5,5.46,3.49,6.51,3.37,3.52,15.36,4.95,11.01,9.99h-54.5c-1.48-5.4,5.5-5.53,9.34-8.16,3.5-2.4,7.66-8.1,7.66-12.34v-112l-1.5-1.5h-72l-1.5,1.5v112c0,1.99,2.54,8.28,3.99,10.01,3.68,4.4,9.46,3.77,13.01,8l-1.5,2.49h-55.5c-.59-5.49,6.88-5.92,10.35-8.15,3.17-2.04,7.65-8.74,7.65-12.35v-113.5h-16.5c-2.27,0-1.2-5.47-.5-7h17Z"/>
+      <path d="M752.13,122.69c-2.11,33.19,18.18,73.27,56.51,69.01,17.95-2,29.42-18.75,33.49-35.01h18c-34.97,92.23-169.62,31.73-128.17-57.68,27.54-61.89,127.71-52.79,132.15,15.19.18,2.76.79,6.63-1.48,8.49h-110.5ZM752.13,114.69h86c-5.95-60.16-87.51-67.96-86,0Z"/>
+      <path d="M823.13.69c1.08,5.53-40.62,39.92-46.55,40-6.75-.11,4.68-10.31,5.97-12.08,6.07-8.32,11.54-18.08,14.58-27.92h26Z"/>
+      <path d="M410.12,149.69c-7.78,54.62-78.65,76.5-123.66,49.17-69.05-38.92-61.84-139.94,4-178.34,35.65-20.79,94.95-18.38,122.72,14.72.16,1.68-.52,2.37-1.48,3.53-3.32,3.1-10.7,10.37-15.26,11.76-1.99.17-12.83-14.14-15.78-16.86-77.11-60.69-137.54,40.05-103.54,110.54,22.36,47.54,84.45,65.19,121.04,22.01,4.58-5.41,7.12-11.78,11.96-16.52Z"/>
+      <path d="M66.13,2.69c1.37,5.61-10.85,7-14.02,11.74-2.06,2.66-3.64,9.34-3.96,12.77,3.3,52.37-4.45,110.29-.05,162.02.46,5.36.47,8.78,6.52,9.48,9,1.04,20.63-.31,30.06-.06,31.92.85,82.25,7.32,109.39-11.53,9.68-6.72,13.37-14.31,20.66-22.33,1.01-1.11,1.47-2.51,3.4-2.09l-14.49,59.98c-6.84-6.87-16.6-9.73-26.01-10.97-54.32-4.86-122.41-6.35-177.49-7.02-1.11-5.99,5.27-5.9,9.15-8.35,7.41-4.67,8.32-9.72,8.9-18.1,3.45-49.9-2.67-103.74-.04-154.05-.77-5.42-3.16-10.2-7.67-13.33C7.65,8.91-2.88,6.54,1.63,2.69h64.5Z"/>
+      <path d="M191.13,102.69s-10.2,19.3-10.2,19.3c-46.24,88.79-149.67.97-65.78-45.78,17.08-7.2,35.39-6.45,53.23-9.77,14.15-2.64,28.11-6.09,20.28-23.76s-39.66-13.67-54.78-8.74c-5.37,1.75-21.92,10.7-25.27,10.66-3.69-.05-17.66-13.72-15.44-16.85,29.48-9.76,74.19-15.47,100.88,3.53,28.7,23.09,12.15,73.44,17.14,104.86,1.22,7.66,9.96,6.41,9.92,8.06-3.87,4.99-18.6,10.84-23.95,13.04-1.53.41-6.03.98-6.03-1.04v-53.5ZM190.12,69.7c-24.2,10.79-66.12-.96-78.87,27.62-13.31,29.85,19.04,57.94,45.37,38.37,18.06-13.42,31.69-43.84,33.5-65.99Z"/>
+    </svg>
+  </div>
+  <p class="header-tagline"><span data-lang="pl">Chwile &amp; Historie</span><span data-lang="en">Moments &amp; Stories</span></p>
+  <div class="lang-switch" role="group" aria-label="Język / Language">
+    <button id="btn-pl" class="active" onclick="setLang('pl')">PL</button>
+    <button id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+</header>
+
+<!-- TAB NAV -->
+<div class="tab-wrap" id="tab-wrap">
+  <button class="tab-arrow left hidden" id="arrow-left" aria-label="Przewiń w lewo" onclick="scrollTabs(-1)">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <div class="tabs" id="tabs-scroll" role="tablist">
+    <button class="tab-btn active" onclick="showTab('sniadania')" role="tab">
+      <span data-lang="pl">Śniadania & Lunche</span><span data-lang="en">Breakfast & Lunch</span>
+    </button>
+    <button class="tab-btn" onclick="showTab('kawa')" role="tab">
+      <span data-lang="pl">Kawa, Herbata & Matcha</span><span data-lang="en">Coffee, Tea & Matcha</span>
+    </button>
+    <button class="tab-btn" onclick="showTab('napoje')" role="tab">
+      <span data-lang="pl">Inne napoje</span><span data-lang="en">Other Drinks</span>
+    </button>
+    <button class="tab-btn" onclick="showTab('desery')" role="tab">
+      <span data-lang="pl">Ciasta, Desery i Gofry</span><span data-lang="en">Cakes, Desserts & Waffles</span>
+    </button>
+  </div>
+  <button class="tab-arrow right hidden" id="arrow-right" aria-label="Przewiń w prawo" onclick="scrollTabs(1)">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+</div>
+
+<main>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PANEL 1: KAWA, HERBATA, MATCHA -->
+<!-- ══════════════════════════════════════════ -->
+<div id="panel-kawa" class="panel">
+
+  <section class="section">
+    <h2 class="section-title"><span data-lang="pl">Kawy klasyczne</span><span data-lang="en">Classic Coffee</span></h2>
+    <div class="items">
+      <div class="item"><span class="item-name">Espresso</span><span class="item-price">8</span></div>
+      <div class="item"><span class="item-name">Espresso Macchiato</span><span class="item-price">9</span></div>
+      <div class="item"><span class="item-name">Doppio</span><span class="item-price">10</span></div>
+      <div class="item"><span class="item-name">Doppio Macchiato</span><span class="item-price">11</span></div>
+      <div class="item"><span class="item-name">Americano <small><span data-lang="pl">małe / duże</span><span data-lang="en">small / large</span></small></span><span class="item-price duo">13 / 15</span></div>
+      <div class="item"><span class="item-name">Cappuccino <small><span data-lang="pl">małe / duże</span><span data-lang="en">small / large</span></small></span><span class="item-price duo">14 / 16</span></div>
+      <div class="item"><span class="item-name">Latte Macchiato</span><span class="item-price">16</span></div>
+      <div class="item"><span class="item-name">Flat White</span><span class="item-price">17</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title"><span data-lang="pl">Kawy na zimno</span><span data-lang="en">Iced Coffee</span></h2>
+    <div class="items">
+      <div class="item"><span class="item-name">Espresso Tonic</span><span class="item-price">18</span></div>
+      <div class="item"><span class="item-name">Espresso Tonic <small><span data-lang="pl">truskawka / pomarańcza</span><span data-lang="en">strawberry / orange</span></small></span><span class="item-price">20</span></div>
+      <div class="item"><span class="item-name">Orange Freshpresso</span><span class="item-price">22</span></div>
+      <div class="item"><span class="item-name">Iced Latte</span><span class="item-price">16</span></div>
+      <div class="item"><span class="item-name">Iced Latte Dubaj</span><span class="item-price">23</span></div>
+      <div class="item"><span class="item-name">Iced Latte <small><span data-lang="pl">ciasteczko</span><span data-lang="en">cookie</span></small></span><span class="item-price">23</span></div>
+      <div class="item"><span class="item-name">Frappe</span><span class="item-price">18</span></div>
+      <div class="item"><span class="item-name">Frappe <small><span data-lang="pl">smakowe</span><span data-lang="en">flavoured</span></small></span><span class="item-price">20</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title"><span data-lang="pl">Kawy specjalne</span><span data-lang="en">Signature Coffee</span></h2>
+    <div class="specials-grid">
+      <div class="special-card">
+        <div class="item-name">Affogato<small><span data-lang="pl">pistacja</span><span data-lang="en">pistachio</span></small></div>
+        <span class="item-price">26</span>
+      </div>
+      <div class="special-card">
+        <div class="item-name">Affogato<small><span data-lang="pl">ciasteczko &amp; słony karmel</span><span data-lang="en">cookie &amp; salted caramel</span></small></div>
+        <span class="item-price">26</span>
+      </div>
+      <div class="special-card">
+        <div class="item-name"><span data-lang="pl">Pistacjowe Marzenie</span><span data-lang="en">Pistachio Dream</span></div>
+        <span class="item-price">24</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title"><span data-lang="pl">Dodatki do kawy</span><span data-lang="en">Coffee Add-ons</span></h2>
+    <div class="pills">
+      <div class="pill"><span data-lang="pl">Syrop smakowy</span><span data-lang="en">Flavour syrup</span> <span class="pill-price">2</span></div>
+      <div class="pill"><span data-lang="pl">Mleko</span><span data-lang="en">Milk</span> <span class="pill-price">1</span></div>
+      <div class="pill"><span data-lang="pl">Mleko bez laktozy</span><span data-lang="en">Lactose-free milk</span> <span class="pill-price">2</span></div>
+      <div class="pill"><span data-lang="pl">Mleko owsiane</span><span data-lang="en">Oat milk</span> <span class="pill-price">3</span></div>
+      <div class="pill"><span data-lang="pl">Mleko migdałowe</span><span data-lang="en">Almond milk</span> <span class="pill-price">3</span></div>
+      <div class="pill"><span data-lang="pl">Mleko kokosowe</span><span data-lang="en">Coconut milk</span> <span class="pill-price">3</span></div>
+      <div class="pill"><span data-lang="pl">Dodatkowe espresso</span><span data-lang="en">Extra shot</span> <span class="pill-price">2</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Matcha</h2>
+    <div class="grid-2">
+      <div>
+        <p class="sub-label"><span data-lang="pl">Na ciepło</span><span data-lang="en">Hot</span></p>
+        <div class="items">
+          <div class="item"><span class="item-name">Latte Matcha</span><span class="item-price">20</span></div>
+          <div class="item"><span class="item-name">Matcha UBE</span><span class="item-price">23</span></div>
+        </div>
+      </div>
+      <div>
+        <p class="sub-label"><span data-lang="pl">Na zimno</span><span data-lang="en">Iced</span></p>
+        <div class="items">
+          <div class="item"><span class="item-name">Iced Latte Matcha</span><span class="item-price">20</span></div>
+          <div class="item"><span class="item-name">Iced Latte Matcha <small><span data-lang="pl">truskawka</span><span data-lang="en">strawberry</span></small></span><span class="item-price">23</span></div>
+          <div class="item"><span class="item-name">Iced Latte Matcha <small>melon</small></span><span class="item-price">22</span></div>
+          <div class="item"><span class="item-name">Iced Latte Matcha <small><span data-lang="pl">pomarańcza</span><span data-lang="en">orange</span></small></span><span class="item-price">24</span></div>
+          <div class="item"><span class="item-name">Iced Latte Matcha <small><span data-lang="pl">miód &amp; cytryna</span><span data-lang="en">honey &amp; lemon</span></small></span><span class="item-price">22</span></div>
+          <div class="item"><span class="item-name">Iced Latte Matcha <small>mango</small></span><span class="item-price">24</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title"><span data-lang="pl">Herbaty</span><span data-lang="en">Teas</span></h2>
+    <div class="items">
+      <div class="item"><span class="item-name">Ceylon</span><span class="item-price">14</span></div>
+      <div class="item"><span class="item-name">Earl Grey</span><span class="item-price">15</span></div>
+      <div class="item"><span class="item-name">Zielona Sencha</span><span class="item-price">16</span></div>
+      <div class="item"><span class="item-name"><span data-lang="pl">Owocowa</span><span data-lang="en">Fruit tea</span></span><span class="item-price">16</span></div>
+      <div class="item"><span class="item-name"><span data-lang="pl">Mroźny wieczór</span><span data-lang="en">Frosty Evening</span></span><span class="item-price">17</span></div>
+      <div class="item"><span class="item-name">Chai Vanilla</span><span class="item-price">18</span></div>
+    </div>
+  </section>
+
+
+</div><!-- /panel-kawa -->
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PANEL 2: INNE NAPOJE -->
+<!-- ══════════════════════════════════════════ -->
+<div id="panel-napoje" class="panel">
+
+  <section class="section">
+    <div class="grid-2">
+      <div>
+        <h2 class="section-title"><span data-lang="pl">Czekolada</span><span data-lang="en">Chocolate</span></h2>
+        <div class="items">
+          <div class="item"><span class="item-name"><span data-lang="pl">Biała</span><span data-lang="en">White</span></span><span class="item-price">13</span></div>
+          <div class="item"><span class="item-name"><span data-lang="pl">Ciemna</span><span data-lang="en">Dark</span></span><span class="item-price">14</span></div>
+        </div>
+      </div>
+      <div>
+        <h2 class="section-title">Shake</h2>
+        <div class="items">
+          <div class="item"><span class="item-name"><span data-lang="pl">Pistacja</span><span data-lang="en">Pistachio</span></span><span class="item-price">23</span></div>
+          <div class="item"><span class="item-name"><span data-lang="pl">Słony karmel</span><span data-lang="en">Salted caramel</span></span><span class="item-price">23</span></div>
+          <div class="item"><span class="item-name"><span data-lang="pl">Czekolada</span><span data-lang="en">Chocolate</span></span><span class="item-price">21</span></div>
+          <div class="item"><span class="item-name"><span data-lang="pl">Truskawka</span><span data-lang="en">Strawberry</span></span><span class="item-price">21</span></div>
+          <div class="item"><span class="item-name"><span data-lang="pl">Wanilia</span><span data-lang="en">Vanilla</span></span><span class="item-price">21</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title"><span data-lang="pl">Lemoniady</span><span data-lang="en">Lemonades</span></h2>
+    <div class="items">
+      <div class="item"><span class="item-name"><span data-lang="pl">Cytrynowa</span><span data-lang="en">Lemon</span></span><span class="item-price">17</span></div>
+      <div class="item"><span class="item-name"><span data-lang="pl">Marakuja</span><span data-lang="en">Passion Fruit</span></span><span class="item-price">19</span></div>
+      <div class="item"><span class="item-name"><span data-lang="pl">Truskawka</span><span data-lang="en">Strawberry</span></span><span class="item-price">19</span></div>
+      <div class="item"><span class="item-name">Tonic &amp; <span data-lang="pl">Kwiat Bzu</span><span data-lang="en">Elderflower</span></span><span class="item-price">20</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid-2">
+      <div>
+        <h2 class="section-title"><span data-lang="pl">Soki naturalne</span><span data-lang="en">Fresh Juices</span></h2>
+        <div class="items">
+          <div class="item"><span class="item-name"><span data-lang="pl">Pomarańcza</span><span data-lang="en">Orange</span></span><span class="item-price">18</span></div>
+          <div class="item"><span class="item-name"><span data-lang="pl">Grejfrut</span><span data-lang="en">Grapefruit</span></span><span class="item-price">20</span></div>
+        </div>
+      </div>
+      <div>
+        <h2 class="section-title"><span data-lang="pl">Napoje</span><span data-lang="en">Soft Drinks</span></h2>
+        <div class="items">
+          <div class="item"><span class="item-name">Pepsi</span><span class="item-price">8</span></div>
+          <div class="item"><span class="item-name">Pepsi Zero</span><span class="item-price">8</span></div>
+          <div class="item"><span class="item-name">Mirinda Orange</span><span class="item-price">8</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title"><span data-lang="pl">Woda z cytryną</span><span data-lang="en">Lemon Water</span></h2>
+    <div class="items">
+      <div class="item"><span class="item-name">0,33 l <small><span data-lang="pl">gazowana / niegazowana</span><span data-lang="en">sparkling / still</span></small></span><span class="item-price">7</span></div>
+      <div class="item"><span class="item-name">0,75 l <small><span data-lang="pl">gazowana / niegazowana</span><span data-lang="en">sparkling / still</span></small></span><span class="item-price">18</span></div>
+    </div>
+  </section>
+
+</div><!-- /panel-napoje -->
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PANEL 3: DESERY & GOFRY -->
+<!-- ══════════════════════════════════════════ -->
+<div id="panel-desery" class="panel">
+
+  <section class="section">
+    <h2 class="section-title"><span data-lang="pl">Ciasta</span><span data-lang="en">Cakes</span></h2>
+    <div class="info-card">
+      <p class="info-card-title"><span data-lang="pl">Aktualna oferta w witrynie kawiarni</span><span data-lang="en">Today's selection in our display case</span></p>
+      <p class="info-card-body">
+        <span data-lang="pl">Zapraszamy do zapoznania się z codzienną ofertą ciast w witrynie na miejscu. Asortyment zmienia się regularnie. Ceny od <strong>10&nbsp;zł</strong> do <strong>30&nbsp;zł</strong>.</span>
+        <span data-lang="en">Please check our in-café display case for the daily cake selection. The range changes regularly. Prices from <strong>10&nbsp;PLN</strong> to <strong>30&nbsp;PLN</strong>.</span>
+      </p>
+      <div class="info-card-sub">
+        <p class="info-card-sub-title">
+          <svg viewBox="0 0 448 512" width="14" height="14" fill="currentColor" style="color:var(--gold);flex-shrink:0"><path d="M86.4 5.5L61.8 47.6C58 54.3 56 61.9 56 69.7V72c0 22.1 17.9 40 40 40s40-17.9 40-40V69.7c0-7.7-2-15.3-5.8-22.1L105.6 5.5C103.6 1.9 99.8 0 95.9 0s-7.7 1.9-9.5 5.5zm128 0L189.8 47.6c-3.8 6.7-5.8 14.3-5.8 22.1V72c0 22.1 17.9 40 40 40s40-17.9 40-40V69.7c0-7.7-2-15.3-5.8-22.1L233.6 5.5C231.6 1.9 227.8 0 223.9 0s-7.7 1.9-9.5 5.5zm118.5 42.1L308.2 89.6c-3.8 6.7-5.8 14.3-5.8 22.1V112c0 22.1 17.9 40 40 40s40-17.9 40-40v-0.3c0-7.8-2-15.4-5.8-22.1L351.9 5.5c-2-3.6-5.8-5.5-9.7-5.5s-7.7 1.9-9.3 5.5zM32 192c-17.7 0-32 14.3-32 32v32H0v32c0 52.8 30.8 98.6 76 120l-4.3 21.7C69.4 443.7 81.5 456 96 456h256c14.4 0 26.6-12.3 24.3-26.3L372 408c45.2-21.4 76-67.2 76-120v-32h0V224c0-17.7-14.3-32-32-32H32zm352 64v16c0 53-43 96-96 96H160c-53 0-96-43-96-96v-16H384z"/></svg>
+          <span data-lang="pl">Zamówienia specjalne – ciasta i torty</span><span data-lang="en">Special orders – cakes & celebration tortes</span>
+        </p>
+        <p class="info-card-body">
+          <span data-lang="pl">Przygotowujemy ciasta i torty na specjalne okazje. Zapytaj naszą obsługę na miejscu o aktualną ofertę i warunki zamówienia.</span>
+          <span data-lang="en">We prepare custom cakes and celebration tortes for special occasions. Ask our staff in-café for details and ordering options.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title"><span data-lang="pl">Lody</span><span data-lang="en">Ice Cream</span></h2>
+    <div class="info-card">
+      <div class="item" style="padding-bottom:1rem;margin-bottom:1rem;border-bottom:1px solid var(--border);">
+        <span class="item-name">
+          <span data-lang="pl">Jedna gałka</span><span data-lang="en">Single scoop</span>
+          <small><span data-lang="pl">w wafelku lub pucharku</span><span data-lang="en">in a cone or cup</span></small>
+        </span>
+        <span class="item-price">8</span>
+      </div>
+      <p class="info-card-body" style="margin-bottom:.8rem;">
+        <span data-lang="pl">Oferta lodów jest sezonowa – dostępne smaki mogą się zmieniać. Zapytaj obsługę o aktualną ofertę.</span>
+        <span data-lang="en">Our ice cream selection is seasonal – available flavours may vary. Please ask our staff for today's options.</span>
+      </p>
+      <p class="info-card-body" style="display:flex;align-items:center;gap:.5rem;">
+        <svg viewBox="0 0 512 512" width="13" height="13" fill="currentColor" style="color:var(--gold);flex-shrink:0"><path d="M346.7 6.6C334.4-.9 319.6-1.9 306.5 4.2L96 96H32C14.3 96 0 110.3 0 128v64 64c0 17.7 14.3 32 32 32h13.5l44.8 137.9C96.8 441.3 104.8 448 114.3 448H128c17.7 0 32-14.3 32-32V288l146.5 91.4c13.1 6.1 27.9 5.1 40.2-2.4S364 357.6 364 343V169 25c0-7.5-2.1-14.8-6-21.1-3.2-5.4-7.8-10-13.3-13.3zM480 128c-17.7 0-32 14.3-32 32v192c0 17.7 14.3 32 32 32s32-14.3 32-32V160c0-17.7-14.3-32-32-32z"/></svg>
+        <span data-lang="pl">Lody dostarczane przez <strong>Kosmos Galaktyka Smaku</strong></span>
+        <span data-lang="en">Ice cream supplied by <strong>Kosmos Galaktyka Smaku</strong></span>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title"><span data-lang="pl">Desery lodowe</span><span data-lang="en">Ice Cream Desserts</span></h2>
+    <div class="items">
+      <div class="item">
+        <span class="item-name"><span data-lang="pl">Duży pucharek</span><span data-lang="en">Large sundae</span><small><span data-lang="pl">3 smaki lodów, bita śmietana, owoce, posypka, polewa</span><span data-lang="en">3 flavours, whipped cream, fruit, sprinkles, sauce</span></small></span>
+        <span class="item-price">29</span>
+      </div>
+      <div class="item">
+        <span class="item-name"><span data-lang="pl">Mały pucharek</span><span data-lang="en">Small sundae</span><small><span data-lang="pl">2 smaki lodów, bita śmietana, owoce, posypka, polewa</span><span data-lang="en">2 flavours, whipped cream, fruit, sprinkles, sauce</span></small></span>
+        <span class="item-price">25</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title"><span data-lang="pl">Gofry</span><span data-lang="en">Waffles</span></h2>
+    <div class="items">
+      <div class="item"><span class="item-name"><span data-lang="pl">Suchy gofr</span><span data-lang="en">Plain waffle</span></span><span class="item-price">11</span></div>
+      <div class="item">
+        <span class="item-name"><span data-lang="pl">Gofry z lodami</span><span data-lang="en">Waffle with ice cream</span><small><span data-lang="pl">gofr, 2 smaki lodów, bita śmietana, owoce, polewa</span><span data-lang="en">waffle, 2 flavours, whipped cream, fruit, sauce</span></small></span>
+        <span class="item-price">32</span>
+      </div>
+    </div>
+    <div style="margin-top:1.1rem;">
+      <p class="sub-label"><span data-lang="pl">Dodatki do gofrów</span><span data-lang="en">Waffle add-ons</span></p>
+      <div class="pills">
+        <div class="pill"><span data-lang="pl">Cukier puder</span><span data-lang="en">Icing sugar</span> <span class="pill-price">1</span></div>
+        <div class="pill"><span data-lang="pl">Polewa</span><span data-lang="en">Sauce</span> <span class="pill-price">2</span></div>
+        <div class="pill"><span data-lang="pl">Bita śmietana</span><span data-lang="en">Whipped cream</span> <span class="pill-price">3</span></div>
+        <div class="pill"><span data-lang="pl">Posypka</span><span data-lang="en">Sprinkles</span> <span class="pill-price">2</span></div>
+        <div class="pill"><span data-lang="pl">Owoce</span><span data-lang="en">Fruit</span> <span class="pill-price">5</span></div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /panel-desery -->
+
+<!-- ══════════════════════════════════════════ -->
+<!-- PANEL 4: ŚNIADANIA & LUNCHE -->
+<!-- ══════════════════════════════════════════ -->
+<div id="panel-sniadania" class="panel active">
+
+  <section class="section">
+    <h2 class="section-title"><span data-lang="pl">Śniadania</span><span data-lang="en">Breakfast</span></h2>
+    <div class="items">
+
+      <div class="item">
+        <span class="item-name">
+          <span data-lang="pl">Serowy Klasyk</span><span data-lang="en">Cheese Classic</span>
+          <small><span data-lang="pl">2× tost z serem</span><span data-lang="en">2× cheese toast</span></small>
+        </span>
+        <span class="item-price">12</span>
+      </div>
+
+      <div class="item">
+        <span class="item-name">
+          <span data-lang="pl">Klasyk z Salami</span><span data-lang="en">Salami Classic</span>
+          <small><span data-lang="pl">2× tost z serem i salami</span><span data-lang="en">2× cheese &amp; salami toast</span></small>
+        </span>
+        <span class="item-price">14</span>
+      </div>
+
+      <div class="item">
+        <span class="item-name">
+          <span data-lang="pl">Poranna Jajecznica</span><span data-lang="en">Morning Scramble</span>
+          <small><span data-lang="pl">3× jajo, sałata, pieczywo / 5× jajo, sałata, pieczywo</span><span data-lang="en">3-egg scramble, salad, bread / 5-egg scramble, salad, bread</span></small>
+        </span>
+        <span class="item-price duo">19 / 22</span>
+      </div>
+
+      <div class="item">
+        <span class="item-name">
+          <span data-lang="pl">Jajeczne Szaleństwo</span><span data-lang="en">Egg Madness</span>
+          <small><span data-lang="pl">3× jajo, sałata, bekon, pieczywo / 5× jajo, sałata, bekon, pieczywo</span><span data-lang="en">3-egg scramble, salad, bacon, bread / 5-egg version</span></small>
+        </span>
+        <span class="item-price duo">23 / 26</span>
+      </div>
+
+      <div class="item">
+        <span class="item-name">
+          <span data-lang="pl">Smażony Frank i Jajo</span><span data-lang="en">Fried Frank &amp; Egg</span>
+          <small><span data-lang="pl">2× sadzone jajo, 2× frankfurterki, sałata, pieczywo</span><span data-lang="en">2 fried eggs, 2 frankfurters, salad, bread</span></small>
+        </span>
+        <span class="item-price">26</span>
+      </div>
+
+      <div class="item">
+        <span class="item-name">
+          Eggxellent Burger
+          <small><span data-lang="pl">jajko sadzone, pomidor, bekon, ogórek kons., sosy</span><span data-lang="en">fried egg, tomato, bacon, pickles, sauces</span></small>
+        </span>
+        <span class="item-price">32</span>
+      </div>
+
+      <div class="item">
+        <span class="item-name">
+          <span data-lang="pl">Tost na Wypasie</span><span data-lang="en">Deluxe Toast</span>
+          <small><span data-lang="pl">tosty z serem, jajka sadzone, bekon, majonez truflowy, sałata</span><span data-lang="en">cheese toast, fried eggs, bacon, truffle mayo, lettuce</span></small>
+        </span>
+        <span class="item-price">30</span>
+      </div>
+
+    </div>
+  </section>
+
+</div><!-- /panel-sniadania -->
+
+</main>
+
+<footer>
+  <div class="f-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 864.32 222.67" aria-hidden="true">
+      <path d="M519.13,103.69c-45.1,110.79-145.51,21.71-76.92-23.42,21.51-12.55,42.69-7.78,64.7-14.3,9.34-2.77,12.26-5.37,11.1-15.67-2.89-25.77-39.1-17.2-55.42-11.64-5,1.7-19.45,9.2-23,9.1-5.36-.16-12.18-9.03-14.65-13.38-2.04-3.58-2.04-4.49,2.19-6.19,16.84-6.78,52.48-8.33,70.24-5.24,57.25,9.96,35.11,66.57,39.87,107.13.22,1.92,1.22,6.21,2.41,7.59,2.27,2.6,9.22.93,6.3,5.86-.68,1.16-22.98,11.33-24.32,11.22-.88-.07-2.51-.94-2.51-1.55v-49.5ZM518.13,71.7c-15.44,5.45-32.42,4.36-48.05,7.44-43.27,8.54-27.08,69.52,9.04,58.04,20.85-6.62,38.17-44.71,39-65.49Z"/>
+      <path d="M564.13,58.69c5.83-47.55,54.06-66.08,96.55-56.05l.41,3c-7.98,2.2-11.33,11.3-17.67,15.92-35.83-18.35-61.08-4.21-56.29,37.13h73.5l1.32-1.68c7.03-46.64,53.74-63.4,95.65-54.32l.5,2.47-17.52,15.57c-7.63-1.59-13.9-6.22-21.95-7.02-19.18-2.33-31.85,9.04-34.49,27.49,0,0,0,16,0,16l1.5,1.5h51.5v7h-51.5l-1.5,1.5v116c0,.99,2.5,5.46,3.49,6.51,3.37,3.52,15.36,4.95,11.01,9.99h-54.5c-1.48-5.4,5.5-5.53,9.34-8.16,3.5-2.4,7.66-8.1,7.66-12.34v-112l-1.5-1.5h-72l-1.5,1.5v112c0,1.99,2.54,8.28,3.99,10.01,3.68,4.4,9.46,3.77,13.01,8l-1.5,2.49h-55.5c-.59-5.49,6.88-5.92,10.35-8.15,3.17-2.04,7.65-8.74,7.65-12.35v-113.5h-16.5c-2.27,0-1.2-5.47-.5-7h17Z"/>
+      <path d="M752.13,122.69c-2.11,33.19,18.18,73.27,56.51,69.01,17.95-2,29.42-18.75,33.49-35.01h18c-34.97,92.23-169.62,31.73-128.17-57.68,27.54-61.89,127.71-52.79,132.15,15.19.18,2.76.79,6.63-1.48,8.49h-110.5ZM752.13,114.69h86c-5.95-60.16-87.51-67.96-86,0Z"/>
+      <path d="M823.13.69c1.08,5.53-40.62,39.92-46.55,40-6.75-.11,4.68-10.31,5.97-12.08,6.07-8.32,11.54-18.08,14.58-27.92h26Z"/>
+      <path d="M410.12,149.69c-7.78,54.62-78.65,76.5-123.66,49.17-69.05-38.92-61.84-139.94,4-178.34,35.65-20.79,94.95-18.38,122.72,14.72.16,1.68-.52,2.37-1.48,3.53-3.32,3.1-10.7,10.37-15.26,11.76-1.99.17-12.83-14.14-15.78-16.86-77.11-60.69-137.54,40.05-103.54,110.54,22.36,47.54,84.45,65.19,121.04,22.01,4.58-5.41,7.12-11.78,11.96-16.52Z"/>
+      <path d="M66.13,2.69c1.37,5.61-10.85,7-14.02,11.74-2.06,2.66-3.64,9.34-3.96,12.77,3.3,52.37-4.45,110.29-.05,162.02.46,5.36.47,8.78,6.52,9.48,9,1.04,20.63-.31,30.06-.06,31.92.85,82.25,7.32,109.39-11.53,9.68-6.72,13.37-14.31,20.66-22.33,1.01-1.11,1.47-2.51,3.4-2.09l-14.49,59.98c-6.84-6.87-16.6-9.73-26.01-10.97-54.32-4.86-122.41-6.35-177.49-7.02-1.11-5.99,5.27-5.9,9.15-8.35,7.41-4.67,8.32-9.72,8.9-18.1,3.45-49.9-2.67-103.74-.04-154.05-.77-5.42-3.16-10.2-7.67-13.33C7.65,8.91-2.88,6.54,1.63,2.69h64.5Z"/>
+      <path d="M191.13,102.69s-10.2,19.3-10.2,19.3c-46.24,88.79-149.67.97-65.78-45.78,17.08-7.2,35.39-6.45,53.23-9.77,14.15-2.64,28.11-6.09,20.28-23.76s-39.66-13.67-54.78-8.74c-5.37,1.75-21.92,10.7-25.27,10.66-3.69-.05-17.66-13.72-15.44-16.85,29.48-9.76,74.19-15.47,100.88,3.53,28.7,23.09,12.15,73.44,17.14,104.86,1.22,7.66,9.96,6.41,9.92,8.06-3.87,4.99-18.6,10.84-23.95,13.04-1.53.41-6.03.98-6.03-1.04v-53.5ZM190.12,69.7c-24.2,10.79-66.12-.96-78.87,27.62-13.31,29.85,19.04,57.94,45.37,38.37,18.06-13.42,31.69-43.84,33.5-65.99Z"/>
+    </svg>
+  </div>
+
+  <p class="f-tagline"><span data-lang="pl">Chwile &amp; Historie</span><span data-lang="en">Moments &amp; Stories</span></p>
+  <div class="f-divider"></div>
+
+  <div class="f-contact">
+    <a href="https://maps.app.goo.gl/jKXRvDreQ1eSjutbA" target="_blank" rel="noopener">
+      <svg viewBox="0 0 384 512" width="13" height="13" fill="currentColor"><path d="M215.7 499.2C267 435 384 279.4 384 192 384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
+      ul. Wileńska 60, Łódź
+    </a>
+    <a href="tel:+48730134666">
+      <svg viewBox="0 0 512 512" width="13" height="13" fill="currentColor"><path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C11.1 30.7 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.3-11.1 38.6-27.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z"/></svg>
+      +48 730 134 666
+    </a>
+    <a href="mailto:kontakt@lacaffe.pl">
+      <svg viewBox="0 0 512 512" width="13" height="13" fill="currentColor"><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg>
+      kontakt@lacaffe.pl
+    </a>
+  </div>
+
+  <div class="f-social">
+    <a href="https://www.facebook.com/profile.php?id=61565429951086" target="_blank" rel="noopener" aria-label="Facebook">
+      <svg viewBox="0 0 512 512" width="15" height="15" fill="currentColor"><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 79.1 476.8 189.3 504.5V334.2H131.8V256h57.5V200c0-56.7 33.8-88 85.2-88c24.7 0 50.5 4.4 50.5 4.4v55.5H296.2c-28 0-36.7 17.4-36.7 35.2V256h62.4l-10 78.2H259.5v170.3C369.9 476.8 512 376 512 256z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/lacaffe_kawiarnia_retkinia/" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 448 512" width="15" height="15" fill="currentColor"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+    </a>
+    <a href="https://maps.app.goo.gl/jKXRvDreQ1eSjutbA" target="_blank" rel="noopener" aria-label="Google Maps">
+      <svg viewBox="0 0 488 512" width="15" height="15" fill="currentColor"><path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/></svg>
+    </a>
+  </div>
+
+  <p class="f-copy">&copy; 2026 LaCaffé · ul. Wileńska 60, Łódź</p>
+  <p style="margin-top:.8rem;font-family:'Jost',sans-serif;font-size:.55rem;letter-spacing:.12em;color:var(--muted);opacity:.45;">
+    made by <a href="https://agnieszkapalmowska.myportfolio.com/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;transition:opacity .2s;" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">Agnieszka Palmowska Design</a>
+  </p>
+
+<script>
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.getElementById('btn-pl').classList.toggle('active', lang === 'pl');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.documentElement.lang = lang;
+  }
+
+  function showTab(id) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── Tab arrows ──
+  const tabsEl    = document.getElementById('tabs-scroll');
+  const arrowL    = document.getElementById('arrow-left');
+  const arrowR    = document.getElementById('arrow-right');
+
+  function updateArrows() {
+    const overflowing = tabsEl.scrollWidth > tabsEl.clientWidth + 2;
+    if (!overflowing) {
+      arrowL.style.display = 'none';
+      arrowR.style.display = 'none';
+      return;
+    }
+    arrowL.style.display = 'flex';
+    arrowR.style.display = 'flex';
+    arrowL.classList.toggle('hidden', tabsEl.scrollLeft <= 4);
+    arrowR.classList.toggle('hidden', tabsEl.scrollLeft >= tabsEl.scrollWidth - tabsEl.clientWidth - 4);
+  }
+
+  function scrollTabs(dir) {
+    tabsEl.scrollBy({ left: dir * 140, behavior: 'smooth' });
+  }
+
+  tabsEl.addEventListener('scroll', updateArrows, { passive: true });
+  window.addEventListener('resize', updateArrows);
+  // run after fonts load
+  window.addEventListener('load', updateArrows);
+  document.fonts ? document.fonts.ready.then(updateArrows) : setTimeout(updateArrows, 400);
+</script>
+</body>
+</html>
