@@ -30,412 +30,12 @@
 <script>(function(){var s=localStorage.getItem('theme');var p=window.matchMedia('(prefers-color-scheme: dark)').matches;if(s==='dark'||(s===null&&p))document.documentElement.classList.add('dark-pending');})()</script>
 <style>html.dark-pending body{background:#1c1916!important}</style>
 <link rel="stylesheet" href="fonts/fonts.css">
-
-<style>
-
-  :root {
-    --bg:        #f5f0eb;
-    --surface:   #faf7f3;
-    --text:      #68645e;
-    --heading:   #3d3731;
-    --price:     #5c554c;
-    --gold:      #b8925a;
-    --gold-lt:   rgba(184,146,90,.18);
-    --muted:     #706d66;
-    --border:    rgba(92,85,76,.1);
-    --white:     #fefcf9;
-  }
-
-  body.dark {
-    --bg:        #1c1916;
-    --surface:   #242018;
-    --text:      #a8a098;
-    --heading:   #e2d9cc;
-    --price:     #c4bdb5;
-    --gold:      #c9a468;
-    --gold-lt:   rgba(184,146,90,.12);
-    --muted:     #8e8a83;
-    --border:    rgba(255,240,210,.07);
-    --white:     #2a2520;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 300;
-    line-height: 1.7;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* ─── HEADER ─── */
-  .header {
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    padding: 2.4rem 2rem 1.8rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.4rem;
-  }
-  .logo-wrap svg { height: 44px; width: auto; display: block; }
-  .logo-wrap svg path { fill: var(--heading); }
-
-  .header-tagline {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 300;
-    font-size: .68rem;
-    letter-spacing: .35em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .lang-switch {
-    display: flex; align-items: center;
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 2px;
-    gap: 0;
-  }
-  .lang-switch button {
-    background: none; border: none; cursor: pointer;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 500; font-size: .65rem;
-    letter-spacing: .18em; text-transform: uppercase;
-    color: var(--muted); padding: .3rem .9rem;
-    border-radius: 1px;
-    transition: background .2s, color .2s;
-  }
-  .lang-switch button.active {
-    background: var(--heading); color: var(--white);
-  }
-
-  /* ─── TAB ARROWS ─── */
-  .tab-wrap {
-    position: sticky; top: 0; z-index: 100;
-    background: var(--white);
-    border-bottom: 1px solid var(--border);
-    position: relative; /* for arrow positioning */
-  }
-  .tab-arrow {
-    display: none; /* shown via JS when overflow */
-    position: absolute; top: 0; bottom: 0;
-    width: 36px; z-index: 2;
-    align-items: center; justify-content: center;
-    background: none; border: none; cursor: pointer;
-    color: var(--muted);
-    transition: color .18s;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .tab-arrow:hover { color: var(--heading); }
-  .tab-arrow.left  { left: 0;  background: linear-gradient(to right, var(--white) 60%, transparent); }
-  .tab-arrow.right { right: 0; background: linear-gradient(to left,  var(--white) 60%, transparent); }
-  .tab-arrow.hidden { opacity: 0; pointer-events: none; }
-  .tab-arrow svg { flex-shrink: 0; }
-  .tabs {
-    display: flex;
-    overflow-x: auto;
-    overflow-y: visible;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x;
-    scrollbar-width: none;
-    padding: 0 .5rem;
-    justify-content: center;
-    /* prevent wrapping */
-    flex-wrap: nowrap;
-  }
-  @media (max-width: 700px) {
-    .tabs { justify-content: flex-start; }
-  }
-  .tabs::-webkit-scrollbar { display: none; }
-  .tab-btn {
-    flex: 0 0 auto;
-    background: none; border: none; cursor: pointer;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700; font-size: 13px;
-    letter-spacing: .12em; text-transform: uppercase;
-    color: var(--muted); padding: 1.1rem 1.3rem;
-    white-space: nowrap; border-bottom: 1px solid transparent;
-    transition: color .2s, border-color .2s;
-    /* make sure touch doesn't get swallowed */
-    -webkit-tap-highlight-color: transparent;
-  }
-  @media (max-width: 500px) {
-    .tab-btn { font-size: 12px; padding: 1rem .9rem; letter-spacing: .08em; }
-  }
-  .tab-btn:hover { color: var(--heading); }
-  .tab-btn.active { color: var(--heading); border-bottom-color: var(--gold); }
-
-  /* ─── PANELS ─── */
-  .panel { display: none; }
-  .panel.active {
-    display: block;
-    animation: panelIn 0.32s cubic-bezier(0.22, 0.61, 0.36, 1) both;
-  }
-  @keyframes panelIn {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ─── THEME TRANSITION ─── */
-  html.theme-transition *,
-  html.theme-transition *::before,
-  html.theme-transition *::after {
-    transition:
-      background-color 0.45s ease,
-      color 0.35s ease,
-      border-color 0.35s ease,
-      fill 0.35s ease,
-      stroke 0.35s ease !important;
-  }
-
-  /* ─── MAIN ─── */
-  main { max-width: 860px; margin: 0 auto; padding: 3.5rem 1.8rem 5rem; }
-
-  /* ─── SECTION ─── */
-  .section { margin-bottom: 4rem; }
-  .section-title {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(1.7rem, 4.5vw, 2.4rem);
-    font-weight: 300;
-    font-style: normal;
-    letter-spacing: .01em;
-    color: var(--heading);
-    margin-bottom: 1.6rem;
-    padding-bottom: .7rem;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-  }
-  .section-title::after {
-    content: '';
-    position: absolute;
-    left: 0; bottom: -1px;
-    width: 32px; height: 1px;
-    background: var(--gold);
-  }
-
-  /* ─── ITEMS ─── */
-  .items { display: flex; flex-direction: column; }
-  .item {
-    display: flex; justify-content: space-between;
-    align-items: baseline; padding: .9rem 0;
-    border-bottom: 1px solid var(--border); gap: 1.5rem;
-  }
-  .item:last-child { border-bottom: none; }
-
-  .item-name {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 500; font-size: 20px;
-    color: var(--heading); flex: 1;
-    letter-spacing: .02em; text-transform: uppercase;
-  }
-  .item-name small {
-    display: block; font-weight: 300; font-size: 18px;
-    color: var(--muted); margin-top: .2rem;
-    font-style: normal; letter-spacing: .01em;
-    text-transform: none;
-  }
-
-  .item-price {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600; font-size: 20px;
-    color: var(--price); white-space: nowrap; flex-shrink: 0;
-    letter-spacing: .03em;
-  }
-  .item-price::after {
-    content: ' zł'; font-size: 20px; font-weight: 600;
-    color: var(--muted); font-family: 'Barlow Condensed', sans-serif;
-    letter-spacing: .03em;
-  }
-  .item-price.duo { font-size: 20px; }
-
-  /* ─── TWO-COL GRID ─── */
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 4rem; }
-  @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
-
-  /* ─── SUB-LABEL ─── */
-  .sub-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 400; font-size: 18px;
-    letter-spacing: .25em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: .8rem; margin-top: .3rem;
-  }
-
-  /* ─── SPECIAL CARDS ─── */
-  .specials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-  .special-card {
-    background: var(--surface);
-    padding: 1.8rem 1.5rem;
-    position: relative;
-  }
-  .special-card::before {
-    content: ''; position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px; background: var(--gold);
-  }
-  .special-card .item-name { color: var(--heading); }
-  .special-card .item-price { display: block; margin-top: 1rem; }
-
-  /* ─── PILLS ─── */
-  .pills { display: flex; flex-wrap: wrap; gap: .5rem; }
-  .pill {
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 0;
-    padding: .5rem 1.1rem;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 18px; font-weight: 600;
-    letter-spacing: .1em; text-transform: uppercase;
-    display: flex; align-items: center; gap: .6rem; color: var(--text);
-    transition: background .18s;
-  }
-  .pill:hover { background: var(--gold-lt); }
-  .pill-price {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600; font-size: 18px; color: var(--price);
-  }
-  .pill-price::after {
-    content: ' zł'; font-size: 18px; font-weight: 600;
-    color: var(--muted); font-family: 'Barlow Condensed', sans-serif;
-    text-transform: none;
-  }
-
-  /* ─── FOOTER ─── */
-  footer {
-    text-align: center; padding: 3.5rem 2rem 3rem;
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    color: var(--muted);
-  }
-  footer .f-logo svg { height: 28px; width: auto; margin-bottom: .8rem; }
-  footer .f-logo svg path { fill: var(--muted); }
-  footer .f-tagline {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: .62rem; letter-spacing: .35em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 2rem;
-  }
-  .f-divider {
-    width: 30px; height: 1px;
-    background: var(--gold); margin: 0 auto 2rem;
-    opacity: .5;
-  }
-  .f-contact {
-    display: flex; flex-wrap: wrap; justify-content: center;
-    gap: .6rem 2.2rem; margin-bottom: 2rem;
-  }
-  .f-contact a {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 300; font-size: 13px;
-    color: var(--muted);
-    text-decoration: none; display: flex; align-items: center; gap: .5rem;
-    letter-spacing: .04em;
-    transition: color .18s;
-  }
-  .f-contact a:hover { color: var(--heading); }
-  .f-contact a svg { color: var(--gold); flex-shrink: 0; }
-  .f-social {
-    display: flex; justify-content: center; gap: .75rem; margin-bottom: 2rem;
-  }
-  .f-social a {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 36px; height: 36px;
-    border: 1px solid var(--border); color: var(--muted);
-    text-decoration: none;
-    transition: border-color .18s, color .18s;
-  }
-  .f-social a:hover { border-color: var(--gold); color: var(--gold); }
-  .f-copy {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: .6rem; letter-spacing: .18em;
-    text-transform: uppercase; color: var(--muted);
-  }
-
-  /* ─── LANGUAGE ─── */
-  [data-lang] { display: none; }
-  .lang-pl [data-lang="pl"] { display: contents; }
-  .lang-en [data-lang="en"] { display: contents; }
-
-  /* ─── INFO CARDS (ciasta, lody) ─── */
-  .info-card {
-    background: var(--surface);
-    border: none;
-    padding: 1.8rem 1.6rem;
-    position: relative;
-    box-shadow: 4px 8px 24px rgba(150,130,105,.18), 2px 4px 8px rgba(150,130,105,.1);
-  }
-  .info-card-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 500; font-size: 18px;
-    letter-spacing: .22em; text-transform: uppercase;
-    color: var(--heading); margin-bottom: .8rem;
-  }
-  .info-card-body {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 300; font-size: 18px;
-    color: var(--text); line-height: 1.75;
-  }
-  .info-card-body strong { color: var(--heading); font-weight: 500; }
-  .info-card-sub {
-    margin-top: 1.2rem; padding-top: 1.2rem;
-    border-top: 1px solid var(--border);
-  }
-  .info-card-sub-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 500; font-size: 18px;
-    letter-spacing: .18em; text-transform: uppercase;
-    color: var(--heading); margin-bottom: .4rem;
-    display: flex; align-items: center; gap: .5rem;
-  }
-
-  /* ─── DARK MODE TOGGLE ─── */
-  .theme-toggle {
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    width: 32px; height: 32px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--muted);
-    transition: color .2s, border-color .2s;
-    position: absolute;
-    top: 1.4rem; right: 1.4rem;
-  }
-  .theme-toggle:hover { color: var(--heading); border-color: var(--gold); }
-  .theme-toggle { overflow: hidden; }
-  .theme-toggle .icon-sun,
-  .theme-toggle .icon-moon {
-    position: absolute;
-    top: 50%; left: 50%;
-    translate: -50% -50%;
-    transition: opacity 0.35s ease, transform 0.35s ease;
-  }
-  .theme-toggle .icon-sun  { opacity: 0; transform: rotate(-30deg) scale(0.8); }
-  .theme-toggle .icon-moon { opacity: 1; transform: rotate(0deg) scale(1); }
-  body.dark .theme-toggle .icon-sun  { opacity: 1; transform: rotate(0deg) scale(1); }
-  body.dark .theme-toggle .icon-moon { opacity: 0; transform: rotate(30deg) scale(0.8); }
-
-  @media (max-width: 480px) {
-    .header { padding: 2rem 1.2rem 1.6rem; }
-    main { padding: 2.5rem 1.1rem 4rem; }
-    .theme-toggle { top: 1rem; right: 1rem; }
-  }
-</style>
+<link rel="stylesheet" href="dist/style.css">
 </head>
 <body class="lang-pl">
 
 <!-- HEADER -->
-<header class="header" style="position:relative">
+<header class="relative flex flex-col items-center gap-[1.4rem] bg-canvas border-b border-border px-8 pt-10 pb-[1.8rem]">
   <div class="logo-wrap">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 864.32 222.67" aria-label="LaCaffé">
       <path d="M519.13,103.69c-45.1,110.79-145.51,21.71-76.92-23.42,21.51-12.55,42.69-7.78,64.7-14.3,9.34-2.77,12.26-5.37,11.1-15.67-2.89-25.77-39.1-17.2-55.42-11.64-5,1.7-19.45,9.2-23,9.1-5.36-.16-12.18-9.03-14.65-13.38-2.04-3.58-2.04-4.49,2.19-6.19,16.84-6.78,52.48-8.33,70.24-5.24,57.25,9.96,35.11,66.57,39.87,107.13.22,1.92,1.22,6.21,2.41,7.59,2.27,2.6,9.22.93,6.3,5.86-.68,1.16-22.98,11.33-24.32,11.22-.88-.07-2.51-.94-2.51-1.55v-49.5ZM518.13,71.7c-15.44,5.45-32.42,4.36-48.05,7.44-43.27,8.54-27.08,69.52,9.04,58.04,20.85-6.62,38.17-44.71,39-65.49Z"/>
@@ -447,7 +47,9 @@
       <path d="M191.13,102.69s-10.2,19.3-10.2,19.3c-46.24,88.79-149.67.97-65.78-45.78,17.08-7.2,35.39-6.45,53.23-9.77,14.15-2.64,28.11-6.09,20.28-23.76s-39.66-13.67-54.78-8.74c-5.37,1.75-21.92,10.7-25.27,10.66-3.69-.05-17.66-13.72-15.44-16.85,29.48-9.76,74.19-15.47,100.88,3.53,28.7,23.09,12.15,73.44,17.14,104.86,1.22,7.66,9.96,6.41,9.92,8.06-3.87,4.99-18.6,10.84-23.95,13.04-1.53.41-6.03.98-6.03-1.04v-53.5ZM190.12,69.7c-24.2,10.79-66.12-.96-78.87,27.62-13.31,29.85,19.04,57.94,45.37,38.37,18.06-13.42,31.69-43.84,33.5-65.99Z"/>
     </svg>
   </div>
-  <p class="header-tagline"><span data-lang="pl">Chwile &amp; Historie</span><span data-lang="en">Moments &amp; Stories</span></p>
+  <p class="font-sans font-light text-[.68rem] tracking-[.35em] uppercase text-muted">
+    <span data-lang="pl">Chwile &amp; Historie</span><span data-lang="en">Moments &amp; Stories</span>
+  </p>
   <div class="lang-switch" role="group" aria-label="Język / Language">
     <button id="btn-pl" class="active" onclick="setLang('pl')">PL</button>
     <button id="btn-en" onclick="setLang('en')">EN</button>
@@ -482,28 +84,28 @@
   </button>
 </div>
 
-<main>
+<main class="max-w-[860px] mx-auto px-7 py-14 pb-20">
 
 <!-- ══════════════════════════════════════════ -->
-<!-- PANEL 1: KAWA, HERBATA, MATCHA -->
+<!-- PANEL: KAWA, HERBATA, MATCHA             -->
 <!-- ══════════════════════════════════════════ -->
 <div id="panel-kawa" class="panel">
 
-  <section class="section">
+  <section class="mb-16">
     <h2 class="section-title"><span data-lang="pl">Kawy klasyczne</span><span data-lang="en">Classic Coffee</span></h2>
     <div class="items">
       <div class="item"><span class="item-name">Espresso</span><span class="item-price">8</span></div>
       <div class="item"><span class="item-name">Espresso Macchiato</span><span class="item-price">9</span></div>
       <div class="item"><span class="item-name">Doppio</span><span class="item-price">10</span></div>
       <div class="item"><span class="item-name">Doppio Macchiato</span><span class="item-price">11</span></div>
-      <div class="item"><span class="item-name">Americano <small><span data-lang="pl">małe / duże</span><span data-lang="en">small / large</span></small></span><span class="item-price duo">13 / 15</span></div>
-      <div class="item"><span class="item-name">Cappuccino <small><span data-lang="pl">małe / duże</span><span data-lang="en">small / large</span></small></span><span class="item-price duo">14 / 16</span></div>
+      <div class="item"><span class="item-name">Americano <small><span data-lang="pl">małe / duże</span><span data-lang="en">small / large</span></small></span><span class="item-price">13 / 15</span></div>
+      <div class="item"><span class="item-name">Cappuccino <small><span data-lang="pl">małe / duże</span><span data-lang="en">small / large</span></small></span><span class="item-price">14 / 16</span></div>
       <div class="item"><span class="item-name">Latte Macchiato</span><span class="item-price">16</span></div>
       <div class="item"><span class="item-name">Flat White</span><span class="item-price">17</span></div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="mb-16">
     <h2 class="section-title"><span data-lang="pl">Kawy na zimno</span><span data-lang="en">Iced Coffee</span></h2>
     <div class="items">
       <div class="item"><span class="item-name">Espresso Tonic</span><span class="item-price">18</span></div>
@@ -517,7 +119,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="mb-16">
     <h2 class="section-title"><span data-lang="pl">Kawy specjalne</span><span data-lang="en">Signature Coffee</span></h2>
     <div class="specials-grid">
       <div class="special-card">
@@ -535,7 +137,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="mb-16">
     <h2 class="section-title"><span data-lang="pl">Dodatki do kawy</span><span data-lang="en">Coffee Add-ons</span></h2>
     <div class="pills">
       <div class="pill"><span data-lang="pl">Syrop smakowy</span><span data-lang="en">Flavour syrup</span> <span class="pill-price">2</span></div>
@@ -548,9 +150,9 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="mb-16">
     <h2 class="section-title">Matcha</h2>
-    <div class="grid-2">
+    <div class="grid grid-cols-2 gap-x-16 max-[600px]:grid-cols-1">
       <div>
         <p class="sub-label"><span data-lang="pl">Na ciepło</span><span data-lang="en">Hot</span></p>
         <div class="items">
@@ -572,7 +174,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="mb-16">
     <h2 class="section-title"><span data-lang="pl">Herbaty</span><span data-lang="en">Teas</span></h2>
     <div class="items">
       <div class="item"><span class="item-name">Ceylon</span><span class="item-price">14</span></div>
@@ -584,16 +186,15 @@
     </div>
   </section>
 
-
 </div><!-- /panel-kawa -->
 
 <!-- ══════════════════════════════════════════ -->
-<!-- PANEL 2: INNE NAPOJE -->
+<!-- PANEL: INNE NAPOJE                        -->
 <!-- ══════════════════════════════════════════ -->
 <div id="panel-napoje" class="panel">
 
-  <section class="section">
-    <div class="grid-2">
+  <section class="mb-16">
+    <div class="grid grid-cols-2 gap-x-16 max-[600px]:grid-cols-1">
       <div>
         <h2 class="section-title"><span data-lang="pl">Czekolada</span><span data-lang="en">Chocolate</span></h2>
         <div class="items">
@@ -614,7 +215,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="mb-16">
     <h2 class="section-title"><span data-lang="pl">Lemoniady</span><span data-lang="en">Lemonades</span></h2>
     <div class="items">
       <div class="item"><span class="item-name"><span data-lang="pl">Cytrynowa</span><span data-lang="en">Lemon</span></span><span class="item-price">17</span></div>
@@ -624,8 +225,8 @@
     </div>
   </section>
 
-  <section class="section">
-    <div class="grid-2">
+  <section class="mb-16">
+    <div class="grid grid-cols-2 gap-x-16 max-[600px]:grid-cols-1">
       <div>
         <h2 class="section-title"><span data-lang="pl">Soki naturalne</span><span data-lang="en">Fresh Juices</span></h2>
         <div class="items">
@@ -644,7 +245,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="mb-16">
     <h2 class="section-title"><span data-lang="pl">Woda z cytryną</span><span data-lang="en">Lemon Water</span></h2>
     <div class="items">
       <div class="item"><span class="item-name">0,33 l <small><span data-lang="pl">gazowana / niegazowana</span><span data-lang="en">sparkling / still</span></small></span><span class="item-price">7</span></div>
@@ -655,11 +256,11 @@
 </div><!-- /panel-napoje -->
 
 <!-- ══════════════════════════════════════════ -->
-<!-- PANEL 3: DESERY & GOFRY -->
+<!-- PANEL: DESERY & GOFRY                     -->
 <!-- ══════════════════════════════════════════ -->
 <div id="panel-desery" class="panel">
 
-  <section class="section">
+  <section class="mb-16">
     <h2 class="section-title"><span data-lang="pl">Ciasta</span><span data-lang="en">Cakes</span></h2>
     <div class="info-card">
       <p class="info-card-title"><span data-lang="pl">Aktualna oferta w witrynie kawiarni</span><span data-lang="en">Today's selection in our display case</span></p>
@@ -669,7 +270,7 @@
       </p>
       <div class="info-card-sub">
         <p class="info-card-sub-title">
-          <svg viewBox="0 0 448 512" width="14" height="14" fill="currentColor" style="color:var(--gold);flex-shrink:0"><path d="M86.4 5.5L61.8 47.6C58 54.3 56 61.9 56 69.7V72c0 22.1 17.9 40 40 40s40-17.9 40-40V69.7c0-7.7-2-15.3-5.8-22.1L105.6 5.5C103.6 1.9 99.8 0 95.9 0s-7.7 1.9-9.5 5.5zm128 0L189.8 47.6c-3.8 6.7-5.8 14.3-5.8 22.1V72c0 22.1 17.9 40 40 40s40-17.9 40-40V69.7c0-7.7-2-15.3-5.8-22.1L233.6 5.5C231.6 1.9 227.8 0 223.9 0s-7.7 1.9-9.5 5.5zm118.5 42.1L308.2 89.6c-3.8 6.7-5.8 14.3-5.8 22.1V112c0 22.1 17.9 40 40 40s40-17.9 40-40v-0.3c0-7.8-2-15.4-5.8-22.1L351.9 5.5c-2-3.6-5.8-5.5-9.7-5.5s-7.7 1.9-9.3 5.5zM32 192c-17.7 0-32 14.3-32 32v32H0v32c0 52.8 30.8 98.6 76 120l-4.3 21.7C69.4 443.7 81.5 456 96 456h256c14.4 0 26.6-12.3 24.3-26.3L372 408c45.2-21.4 76-67.2 76-120v-32h0V224c0-17.7-14.3-32-32-32H32zm352 64v16c0 53-43 96-96 96H160c-53 0-96-43-96-96v-16H384z"/></svg>
+          <svg viewBox="0 0 448 512" width="14" height="14" fill="currentColor" style="color:var(--color-gold);flex-shrink:0"><path d="M86.4 5.5L61.8 47.6C58 54.3 56 61.9 56 69.7V72c0 22.1 17.9 40 40 40s40-17.9 40-40V69.7c0-7.7-2-15.3-5.8-22.1L105.6 5.5C103.6 1.9 99.8 0 95.9 0s-7.7 1.9-9.5 5.5zm128 0L189.8 47.6c-3.8 6.7-5.8 14.3-5.8 22.1V72c0 22.1 17.9 40 40 40s40-17.9 40-40V69.7c0-7.7-2-15.3-5.8-22.1L233.6 5.5C231.6 1.9 227.8 0 223.9 0s-7.7 1.9-9.5 5.5zm118.5 42.1L308.2 89.6c-3.8 6.7-5.8 14.3-5.8 22.1V112c0 22.1 17.9 40 40 40s40-17.9 40-40v-0.3c0-7.8-2-15.4-5.8-22.1L351.9 5.5c-2-3.6-5.8-5.5-9.7-5.5s-7.7 1.9-9.3 5.5zM32 192c-17.7 0-32 14.3-32 32v32H0v32c0 52.8 30.8 98.6 76 120l-4.3 21.7C69.4 443.7 81.5 456 96 456h256c14.4 0 26.6-12.3 24.3-26.3L372 408c45.2-21.4 76-67.2 76-120v-32h0V224c0-17.7-14.3-32-32-32H32zm352 64v16c0 53-43 96-96 96H160c-53 0-96-43-96-96v-16H384z"/></svg>
           <span data-lang="pl">Zamówienia specjalne – ciasta i torty</span><span data-lang="en">Special orders – cakes & celebration tortes</span>
         </p>
         <p class="info-card-body">
@@ -680,29 +281,29 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="mb-16">
     <h2 class="section-title"><span data-lang="pl">Lody</span><span data-lang="en">Ice Cream</span></h2>
     <div class="info-card">
-      <div class="item" style="padding-bottom:1rem;margin-bottom:1rem;border-bottom:1px solid var(--border);">
+      <div class="item" style="padding:0 0 .9rem;margin-bottom:.8rem;border-bottom:1px solid var(--color-border);">
         <span class="item-name">
           <span data-lang="pl">Jedna gałka</span><span data-lang="en">Single scoop</span>
-          <small><span data-lang="pl">w wafelku lub pucharku</span><span data-lang="en">in a cone or cup</span></small>
+          <small><span data-lang="pl">w wafelku lub pucharku · inne smaki / pistacja</span><span data-lang="en">in a cone or cup · other flavours / pistachio</span></small>
         </span>
-        <span class="item-price">8</span>
+        <span class="item-price duo">8 / 9</span>
       </div>
       <p class="info-card-body" style="margin-bottom:.8rem;">
         <span data-lang="pl">Oferta lodów jest sezonowa – dostępne smaki mogą się zmieniać. Zapytaj obsługę o aktualną ofertę.</span>
         <span data-lang="en">Our ice cream selection is seasonal – available flavours may vary. Please ask our staff for today's options.</span>
       </p>
       <p class="info-card-body" style="display:flex;align-items:center;gap:.5rem;">
-        <svg viewBox="0 0 512 512" width="13" height="13" fill="currentColor" style="color:var(--gold);flex-shrink:0"><path d="M346.7 6.6C334.4-.9 319.6-1.9 306.5 4.2L96 96H32C14.3 96 0 110.3 0 128v64 64c0 17.7 14.3 32 32 32h13.5l44.8 137.9C96.8 441.3 104.8 448 114.3 448H128c17.7 0 32-14.3 32-32V288l146.5 91.4c13.1 6.1 27.9 5.1 40.2-2.4S364 357.6 364 343V169 25c0-7.5-2.1-14.8-6-21.1-3.2-5.4-7.8-10-13.3-13.3zM480 128c-17.7 0-32 14.3-32 32v192c0 17.7 14.3 32 32 32s32-14.3 32-32V160c0-17.7-14.3-32-32-32z"/></svg>
+        <svg viewBox="0 0 512 512" width="13" height="13" fill="currentColor" style="color:var(--color-gold);flex-shrink:0"><path d="M346.7 6.6C334.4-.9 319.6-1.9 306.5 4.2L96 96H32C14.3 96 0 110.3 0 128v64 64c0 17.7 14.3 32 32 32h13.5l44.8 137.9C96.8 441.3 104.8 448 114.3 448H128c17.7 0 32-14.3 32-32V288l146.5 91.4c13.1 6.1 27.9 5.1 40.2-2.4S364 357.6 364 343V169 25c0-7.5-2.1-14.8-6-21.1-3.2-5.4-7.8-10-13.3-13.3zM480 128c-17.7 0-32 14.3-32 32v192c0 17.7 14.3 32 32 32s32-14.3 32-32V160c0-17.7-14.3-32-32-32z"/></svg>
         <span data-lang="pl">Lody dostarczane przez <strong>Kosmos Galaktyka Smaku</strong></span>
         <span data-lang="en">Ice cream supplied by <strong>Kosmos Galaktyka Smaku</strong></span>
       </p>
     </div>
   </section>
 
-  <section class="section">
+  <section class="mb-16">
     <h2 class="section-title"><span data-lang="pl">Desery lodowe</span><span data-lang="en">Ice Cream Desserts</span></h2>
     <div class="items">
       <div class="item">
@@ -716,7 +317,7 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="mb-16">
     <h2 class="section-title"><span data-lang="pl">Gofry</span><span data-lang="en">Waffles</span></h2>
     <div class="items">
       <div class="item"><span class="item-name"><span data-lang="pl">Suchy gofr</span><span data-lang="en">Plain waffle</span></span><span class="item-price">11</span></div>
@@ -725,7 +326,7 @@
         <span class="item-price">32</span>
       </div>
     </div>
-    <div style="margin-top:1.1rem;">
+    <div class="mt-[1.1rem]">
       <p class="sub-label"><span data-lang="pl">Dodatki do gofrów</span><span data-lang="en">Waffle add-ons</span></p>
       <div class="pills">
         <div class="pill"><span data-lang="pl">Cukier puder</span><span data-lang="en">Icing sugar</span> <span class="pill-price">1</span></div>
@@ -740,11 +341,11 @@
 </div><!-- /panel-desery -->
 
 <!-- ══════════════════════════════════════════ -->
-<!-- PANEL 4: ŚNIADANIA & LUNCHE -->
+<!-- PANEL: ŚNIADANIA & LUNCHE                 -->
 <!-- ══════════════════════════════════════════ -->
 <div id="panel-sniadania" class="panel active">
 
-  <section class="section">
+  <section class="mb-16">
     <h2 class="section-title"><span data-lang="pl">Śniadania</span><span data-lang="en">Breakfast</span></h2>
     <div class="items">
 
@@ -769,7 +370,7 @@
           <span data-lang="pl">Poranna Jajecznica</span><span data-lang="en">Morning Scramble</span>
           <small><span data-lang="pl">3× jajo, sałata, pieczywo / 5× jajo, sałata, pieczywo</span><span data-lang="en">3-egg scramble, salad, bread / 5-egg scramble, salad, bread</span></small>
         </span>
-        <span class="item-price duo">19 / 22</span>
+        <span class="item-price">19 / 22</span>
       </div>
 
       <div class="item">
@@ -777,7 +378,7 @@
           <span data-lang="pl">Jajeczne Szaleństwo</span><span data-lang="en">Egg Madness</span>
           <small><span data-lang="pl">3× jajo, sałata, bekon, pieczywo / 5× jajo, sałata, bekon, pieczywo</span><span data-lang="en">3-egg scramble, salad, bacon, bread / 5-egg version</span></small>
         </span>
-        <span class="item-price duo">23 / 26</span>
+        <span class="item-price">23 / 26</span>
       </div>
 
       <div class="item">
@@ -811,7 +412,7 @@
 
 </main>
 
-<footer>
+<footer class="text-center px-8 py-14 pb-12 bg-surface border-t border-border text-muted">
   <div class="f-logo">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 864.32 222.67" aria-hidden="true">
       <path d="M519.13,103.69c-45.1,110.79-145.51,21.71-76.92-23.42,21.51-12.55,42.69-7.78,64.7-14.3,9.34-2.77,12.26-5.37,11.1-15.67-2.89-25.77-39.1-17.2-55.42-11.64-5,1.7-19.45,9.2-23,9.1-5.36-.16-12.18-9.03-14.65-13.38-2.04-3.58-2.04-4.49,2.19-6.19,16.84-6.78,52.48-8.33,70.24-5.24,57.25,9.96,35.11,66.57,39.87,107.13.22,1.92,1.22,6.21,2.41,7.59,2.27,2.6,9.22.93,6.3,5.86-.68,1.16-22.98,11.33-24.32,11.22-.88-.07-2.51-.94-2.51-1.55v-49.5ZM518.13,71.7c-15.44,5.45-32.42,4.36-48.05,7.44-43.27,8.54-27.08,69.52,9.04,58.04,20.85-6.62,38.17-44.71,39-65.49Z"/>
@@ -824,10 +425,12 @@
     </svg>
   </div>
 
-  <p class="f-tagline"><span data-lang="pl">Chwile &amp; Historie</span><span data-lang="en">Moments &amp; Stories</span></p>
-  <div class="f-divider"></div>
+  <p class="font-sans text-[.62rem] tracking-[.35em] uppercase text-muted mb-8">
+    <span data-lang="pl">Chwile &amp; Historie</span><span data-lang="en">Moments &amp; Stories</span>
+  </p>
+  <div class="w-8 h-px bg-gold mx-auto mb-8 opacity-50"></div>
 
-  <div class="f-contact">
+  <div class="f-contact flex flex-wrap justify-center gap-x-9 gap-y-2 mb-8">
     <a href="https://maps.app.goo.gl/jKXRvDreQ1eSjutbA" target="_blank" rel="noopener">
       <svg viewBox="0 0 384 512" width="13" height="13" fill="currentColor"><path d="M215.7 499.2C267 435 384 279.4 384 192 384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
       ul. Wileńska 60, Łódź
@@ -842,7 +445,7 @@
     </a>
   </div>
 
-  <div class="f-social">
+  <div class="f-social flex justify-center gap-3 mb-8">
     <a href="https://www.facebook.com/profile.php?id=61565429951086" target="_blank" rel="noopener" aria-label="Facebook">
       <svg viewBox="0 0 512 512" width="15" height="15" fill="currentColor"><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 79.1 476.8 189.3 504.5V334.2H131.8V256h57.5V200c0-56.7 33.8-88 85.2-88c24.7 0 50.5 4.4 50.5 4.4v55.5H296.2c-28 0-36.7 17.4-36.7 35.2V256h62.4l-10 78.2H259.5v170.3C369.9 476.8 512 376 512 256z"/></svg>
     </a>
@@ -854,10 +457,11 @@
     </a>
   </div>
 
-  <p class="f-copy">&copy; 2026 LaCaffé · ul. Wileńska 60, Łódź</p>
-  <p style="margin-top:.8rem;font-family:'Barlow Condensed',sans-serif;font-size:.55rem;letter-spacing:.12em;color:var(--muted);opacity:.45;">
+  <p class="font-sans text-[.6rem] tracking-[.18em] uppercase text-muted">&copy; 2026 LaCaffé · ul. Wileńska 60, Łódź</p>
+  <p class="mt-3 font-sans text-[.55rem] tracking-[.12em] text-muted opacity-45">
     made by <a href="https://agnieszkapalmowska.myportfolio.com/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;transition:opacity .2s;" onmouseover="this.style.opacity='.9'" onmouseout="this.style.opacity='1'">Agnieszka Palmowska Design</a>
   </p>
+</footer>
 
 <script>
   // ── Dark mode ──
@@ -894,9 +498,9 @@
   }
 
   // ── Tab arrows ──
-  const tabsEl    = document.getElementById('tabs-scroll');
-  const arrowL    = document.getElementById('arrow-left');
-  const arrowR    = document.getElementById('arrow-right');
+  const tabsEl = document.getElementById('tabs-scroll');
+  const arrowL = document.getElementById('arrow-left');
+  const arrowR = document.getElementById('arrow-right');
 
   function updateArrows() {
     const overflowing = tabsEl.scrollWidth > tabsEl.clientWidth + 2;
@@ -917,7 +521,6 @@
 
   tabsEl.addEventListener('scroll', updateArrows, { passive: true });
   window.addEventListener('resize', updateArrows);
-  // run after fonts load
   window.addEventListener('load', updateArrows);
   document.fonts ? document.fonts.ready.then(updateArrows) : setTimeout(updateArrows, 400);
 </script>
