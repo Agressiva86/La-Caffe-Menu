@@ -29,11 +29,9 @@
 <meta name="twitter:image" content="https://agressiva86.github.io/La-Caffe-Menu/og-image.png">
 <script>(function(){var s=localStorage.getItem('theme');var p=window.matchMedia('(prefers-color-scheme: dark)').matches;if(s==='dark'||(s===null&&p))document.documentElement.classList.add('dark-pending');})()</script>
 <style>html.dark-pending body{background:#1c1916!important}</style>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="fonts/fonts.css">
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500&display=swap');
 
   :root {
     --bg:        #f5f0eb;
@@ -175,7 +173,26 @@
 
   /* ─── PANELS ─── */
   .panel { display: none; }
-  .panel.active { display: block; }
+  .panel.active {
+    display: block;
+    animation: panelIn 0.32s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+  @keyframes panelIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── THEME TRANSITION ─── */
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition:
+      background-color 0.45s ease,
+      color 0.35s ease,
+      border-color 0.35s ease,
+      fill 0.35s ease,
+      stroke 0.35s ease !important;
+  }
 
   /* ─── MAIN ─── */
   main { max-width: 860px; margin: 0 auto; padding: 3.5rem 1.8rem 5rem; }
@@ -395,10 +412,18 @@
     top: 1.4rem; right: 1.4rem;
   }
   .theme-toggle:hover { color: var(--heading); border-color: var(--gold); }
-  .theme-toggle .icon-sun  { display: none; }
-  .theme-toggle .icon-moon { display: block; }
-  body.dark .theme-toggle .icon-sun  { display: block; }
-  body.dark .theme-toggle .icon-moon { display: none; }
+  .theme-toggle { overflow: hidden; }
+  .theme-toggle .icon-sun,
+  .theme-toggle .icon-moon {
+    position: absolute;
+    top: 50%; left: 50%;
+    translate: -50% -50%;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .theme-toggle .icon-sun  { opacity: 0; transform: rotate(-30deg) scale(0.8); }
+  .theme-toggle .icon-moon { opacity: 1; transform: rotate(0deg) scale(1); }
+  body.dark .theme-toggle .icon-sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+  body.dark .theme-toggle .icon-moon { opacity: 0; transform: rotate(30deg) scale(0.8); }
 
   @media (max-width: 480px) {
     .header { padding: 2rem 1.2rem 1.6rem; }
@@ -846,8 +871,10 @@
   })();
 
   document.getElementById('theme-toggle').addEventListener('click', function() {
+    document.documentElement.classList.add('theme-transition');
     const isDark = document.body.classList.toggle('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    setTimeout(() => document.documentElement.classList.remove('theme-transition'), 500);
   });
 
   function setLang(lang) {
