@@ -27,6 +27,8 @@
 <meta name="twitter:title" content="LaCaffé – Menu | Kawiarnia Łódź">
 <meta name="twitter:description" content="Odkryj nasze menu – kawa rzemieślnicza z łódzkiej palarni, matcha, śniadania i domowe ciasta. ul. Wileńska 60, Łódź.">
 <meta name="twitter:image" content="https://agressiva86.github.io/La-Caffe-Menu/og-image.png">
+<script>(function(){var s=localStorage.getItem('theme');var p=window.matchMedia('(prefers-color-scheme: dark)').matches;if(s==='dark'||(s===null&&p))document.documentElement.classList.add('dark-pending');})()</script>
+<style>html.dark-pending body{background:#1c1916!important}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@400;600&display=swap" rel="stylesheet">
 
@@ -36,14 +38,27 @@
   :root {
     --bg:        #f5f0eb;
     --surface:   #faf7f3;
-    --text:      #75706a;
+    --text:      #68645e;
     --heading:   #3d3731;
     --price:     #5c554c;
     --gold:      #b8925a;
     --gold-lt:   rgba(184,146,90,.18);
-    --muted:     #a8a098;
+    --muted:     #706d66;
     --border:    rgba(92,85,76,.1);
     --white:     #fefcf9;
+  }
+
+  body.dark {
+    --bg:        #1c1916;
+    --surface:   #242018;
+    --text:      #a8a098;
+    --heading:   #e2d9cc;
+    --price:     #c4bdb5;
+    --gold:      #c9a468;
+    --gold-lt:   rgba(184,146,90,.12);
+    --muted:     #8e8a83;
+    --border:    rgba(255,240,210,.07);
+    --white:     #2a2520;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -144,7 +159,7 @@
     flex: 0 0 auto;
     background: none; border: none; cursor: pointer;
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 400; font-size: 13px;
+    font-weight: 700; font-size: 13px;
     letter-spacing: .12em; text-transform: uppercase;
     color: var(--muted); padding: 1.1rem 1.3rem;
     white-space: nowrap; border-bottom: 1px solid transparent;
@@ -198,12 +213,12 @@
 
   .item-name {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 500; font-size: 15px;
+    font-weight: 500; font-size: 20px;
     color: var(--heading); flex: 1;
     letter-spacing: .02em; text-transform: uppercase;
   }
   .item-name small {
-    display: block; font-weight: 300; font-size: 13px;
+    display: block; font-weight: 300; font-size: 18px;
     color: var(--muted); margin-top: .2rem;
     font-style: normal; letter-spacing: .01em;
     text-transform: none;
@@ -211,16 +226,16 @@
 
   .item-price {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 500; font-size: 16px;
+    font-weight: 600; font-size: 20px;
     color: var(--price); white-space: nowrap; flex-shrink: 0;
     letter-spacing: .03em;
   }
   .item-price::after {
-    content: ' zł'; font-size: 16px; font-weight: 400;
+    content: ' zł'; font-size: 20px; font-weight: 600;
     color: var(--muted); font-family: 'Barlow Condensed', sans-serif;
     letter-spacing: .03em;
   }
-  .item-price.duo { font-size: 15px; }
+  .item-price.duo { font-size: 20px; }
 
   /* ─── TWO-COL GRID ─── */
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 4rem; }
@@ -229,7 +244,7 @@
   /* ─── SUB-LABEL ─── */
   .sub-label {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 400; font-size: .6rem;
+    font-weight: 400; font-size: 18px;
     letter-spacing: .25em; text-transform: uppercase;
     color: var(--muted); margin-bottom: .8rem; margin-top: .3rem;
   }
@@ -263,7 +278,7 @@
     border-radius: 0;
     padding: .5rem 1.1rem;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px; font-weight: 400;
+    font-size: 18px; font-weight: 600;
     letter-spacing: .1em; text-transform: uppercase;
     display: flex; align-items: center; gap: .6rem; color: var(--text);
     transition: background .18s;
@@ -271,11 +286,12 @@
   .pill:hover { background: var(--gold-lt); }
   .pill-price {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 500; font-size: 13px; color: var(--price);
+    font-weight: 600; font-size: 18px; color: var(--price);
   }
   .pill-price::after {
-    content: ' zł'; font-size: 13px; font-weight: 400;
+    content: ' zł'; font-size: 18px; font-weight: 600;
     color: var(--muted); font-family: 'Barlow Condensed', sans-serif;
+    text-transform: none;
   }
 
   /* ─── FOOTER ─── */
@@ -325,7 +341,7 @@
   .f-copy {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: .6rem; letter-spacing: .18em;
-    text-transform: uppercase; color: var(--muted); opacity: .5;
+    text-transform: uppercase; color: var(--muted);
   }
 
   /* ─── LANGUAGE ─── */
@@ -343,13 +359,13 @@
   }
   .info-card-title {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 500; font-size: 12px;
+    font-weight: 500; font-size: 18px;
     letter-spacing: .22em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: .8rem;
+    color: var(--heading); margin-bottom: .8rem;
   }
   .info-card-body {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 300; font-size: 14px;
+    font-weight: 300; font-size: 18px;
     color: var(--text); line-height: 1.75;
   }
   .info-card-body strong { color: var(--heading); font-weight: 500; }
@@ -359,22 +375,42 @@
   }
   .info-card-sub-title {
     font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 500; font-size: 12px;
+    font-weight: 500; font-size: 18px;
     letter-spacing: .18em; text-transform: uppercase;
     color: var(--heading); margin-bottom: .4rem;
     display: flex; align-items: center; gap: .5rem;
   }
 
+  /* ─── DARK MODE TOGGLE ─── */
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    width: 32px; height: 32px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    transition: color .2s, border-color .2s;
+    position: absolute;
+    top: 1.4rem; right: 1.4rem;
+  }
+  .theme-toggle:hover { color: var(--heading); border-color: var(--gold); }
+  .theme-toggle .icon-sun  { display: none; }
+  .theme-toggle .icon-moon { display: block; }
+  body.dark .theme-toggle .icon-sun  { display: block; }
+  body.dark .theme-toggle .icon-moon { display: none; }
+
   @media (max-width: 480px) {
     .header { padding: 2rem 1.2rem 1.6rem; }
     main { padding: 2.5rem 1.1rem 4rem; }
+    .theme-toggle { top: 1rem; right: 1rem; }
   }
 </style>
 </head>
 <body class="lang-pl">
 
 <!-- HEADER -->
-<header class="header">
+<header class="header" style="position:relative">
   <div class="logo-wrap">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 864.32 222.67" aria-label="LaCaffé">
       <path d="M519.13,103.69c-45.1,110.79-145.51,21.71-76.92-23.42,21.51-12.55,42.69-7.78,64.7-14.3,9.34-2.77,12.26-5.37,11.1-15.67-2.89-25.77-39.1-17.2-55.42-11.64-5,1.7-19.45,9.2-23,9.1-5.36-.16-12.18-9.03-14.65-13.38-2.04-3.58-2.04-4.49,2.19-6.19,16.84-6.78,52.48-8.33,70.24-5.24,57.25,9.96,35.11,66.57,39.87,107.13.22,1.92,1.22,6.21,2.41,7.59,2.27,2.6,9.22.93,6.3,5.86-.68,1.16-22.98,11.33-24.32,11.22-.88-.07-2.51-.94-2.51-1.55v-49.5ZM518.13,71.7c-15.44,5.45-32.42,4.36-48.05,7.44-43.27,8.54-27.08,69.52,9.04,58.04,20.85-6.62,38.17-44.71,39-65.49Z"/>
@@ -391,6 +427,10 @@
     <button id="btn-pl" class="active" onclick="setLang('pl')">PL</button>
     <button id="btn-en" onclick="setLang('en')">EN</button>
   </div>
+  <button class="theme-toggle" id="theme-toggle" aria-label="Przełącz motyw">
+    <svg class="icon-moon" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  </button>
 </header>
 
 <!-- TAB NAV -->
@@ -795,8 +835,24 @@
   </p>
 
 <script>
+  // ── Dark mode ──
+  (function() {
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (stored === 'dark' || (!stored && prefersDark)) {
+      document.body.classList.add('dark');
+    }
+    document.documentElement.classList.remove('dark-pending');
+  })();
+
+  document.getElementById('theme-toggle').addEventListener('click', function() {
+    const isDark = document.body.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+
   function setLang(lang) {
-    document.body.className = 'lang-' + lang;
+    const isDark = document.body.classList.contains('dark');
+    document.body.className = 'lang-' + lang + (isDark ? ' dark' : '');
     document.getElementById('btn-pl').classList.toggle('active', lang === 'pl');
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     document.documentElement.lang = lang;
