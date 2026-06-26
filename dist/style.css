@@ -8,6 +8,8 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --spacing: 0.25rem;
+    --text-base: 1rem;
+    --text-base--line-height: calc(1.5 / 1);
     --font-weight-light: 300;
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
@@ -291,14 +293,9 @@
   .font-sans {
     font-family: var(--font-sans);
   }
-  .text-\[\.6rem\] {
-    font-size: .6rem;
-  }
-  .text-\[\.55rem\] {
-    font-size: .55rem;
-  }
-  .text-\[\.62rem\] {
-    font-size: .62rem;
+  .text-base {
+    font-size: var(--text-base);
+    line-height: var(--tw-leading, var(--text-base--line-height));
   }
   .text-\[\.68rem\] {
     font-size: .68rem;
@@ -493,7 +490,7 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
     cursor: pointer;
     font-family: var(--font-sans);
     font-weight: 700;
-    font-size: 13px;
+    font-size: 16px;
     letter-spacing: .12em;
     text-transform: uppercase;
     color: var(--color-muted);
@@ -505,7 +502,7 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
   }
   @media (max-width: 500px) {
     .tab-btn {
-      font-size: 12px;
+      font-size: 13px;
       padding: 1rem .9rem;
       letter-spacing: .08em;
     }
@@ -765,7 +762,8 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
   .f-logo svg {
     height: 28px;
     width: auto;
-    margin-bottom: .8rem;
+    margin: 0 auto .8rem;
+    display: block;
   }
   .f-logo svg path {
     fill: var(--color-muted);
@@ -773,7 +771,7 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
   .f-contact a {
     font-family: var(--font-sans);
     font-weight: 300;
-    font-size: 13px;
+    font-size: 16px;
     color: var(--color-muted);
     text-decoration: none;
     display: flex;

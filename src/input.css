@@ -133,14 +133,14 @@ html.theme-transition *::after {
     flex: 0 0 auto;
     background: none; border: none; cursor: pointer;
     font-family: var(--font-sans);
-    font-weight: 700; font-size: 13px;
+    font-weight: 700; font-size: 16px;
     letter-spacing: .12em; text-transform: uppercase;
     color: var(--color-muted); padding: 1.1rem 1.3rem;
     white-space: nowrap; border-bottom: 1px solid transparent;
     transition: color .2s, border-color .2s;
     -webkit-tap-highlight-color: transparent;
   }
-  @media (max-width: 500px) { .tab-btn { font-size: 12px; padding: 1rem .9rem; letter-spacing: .08em; } }
+  @media (max-width: 500px) { .tab-btn { font-size: 13px; padding: 1rem .9rem; letter-spacing: .08em; } }
   .tab-btn:hover { color: var(--color-heading); }
   .tab-btn.active { color: var(--color-heading); border-bottom-color: var(--color-gold); }
 
@@ -302,11 +302,11 @@ html.theme-transition *::after {
   }
 
   /* Footer elements */
-  .f-logo svg { height: 28px; width: auto; margin-bottom: .8rem; }
+  .f-logo svg { height: 28px; width: auto; margin: 0 auto .8rem; display: block; }
   .f-logo svg path { fill: var(--color-muted); }
   .f-contact a {
     font-family: var(--font-sans);
-    font-weight: 300; font-size: 13px;
+    font-weight: 300; font-size: 16px;
     color: var(--color-muted); text-decoration: none;
     display: flex; align-items: center; gap: .5rem;
     letter-spacing: .04em; transition: color .18s;
