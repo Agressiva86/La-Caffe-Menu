@@ -71,4 +71,54 @@
   window.addEventListener("resize", function () {
     if (window.innerWidth > 980) setNavOpen(false);
   });
+
+  function initCarousel(root) {
+    var slides = root.querySelectorAll(".carousel-slide");
+    var dots = root.querySelectorAll("[data-slide]");
+    if (!slides.length) return;
+    var index = 0;
+    var timer;
+
+    function show(next) {
+      index = (next + slides.length) % slides.length;
+      slides.forEach(function (slide, i) {
+        slide.classList.toggle("is-active", i === index);
+      });
+      dots.forEach(function (dot, i) {
+        dot.classList.toggle("is-active", i === index);
+      });
+    }
+
+    function play() {
+      window.clearInterval(timer);
+      timer = window.setInterval(function () {
+        show(index + 1);
+      }, 4500);
+    }
+
+    dots.forEach(function (dot) {
+      dot.addEventListener("click", function () {
+        show(Number(dot.getAttribute("data-slide")) || 0);
+        play();
+      });
+    });
+
+    show(0);
+    play();
+  }
+
+  document.querySelectorAll("[data-carousel]").forEach(initCarousel);
+
+  document.querySelectorAll("[data-quote-slider]").forEach(function (root) {
+    var slides = root.querySelectorAll(".quote-slide");
+    var next = root.querySelector("[data-quote-next]");
+    if (!slides.length || !next) return;
+    var index = 0;
+    next.addEventListener("click", function () {
+      index = (index + 1) % slides.length;
+      slides.forEach(function (slide, i) {
+        slide.classList.toggle("is-active", i === index);
+      });
+    });
+  });
 })();
