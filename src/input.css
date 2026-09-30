@@ -8,24 +8,25 @@
 */
 
 :root {
-  --areia: #ebe6dc;
-  --cinza: #d9d5cd;
-  --bege: #bbb1a3;
-  --marrom: #736c5c;
-  --carvao: #261f1d;
+  /* Harper: siteBackground #F0EFEC, ink #32302B, muted #8C8673, alt #EAE9E6 / #FAFAFA */
+  --areia: #f0efec;
+  --cinza: #eae9e6;
+  --bege: #d7d5ce;
+  --marrom: #8c8673;
+  --carvao: #32302b;
   --ink: var(--carvao);
   --muted: var(--marrom);
   --paper: var(--areia);
   --line: var(--bege);
-  --card: #f4f0e8;
-  --sheet: var(--cinza);
-  --header: #f3efe7;
+  --card: #fafafa;
+  --sheet: #fafafa;
+  --header: var(--areia);
   --shadow: none;
   --cream: var(--cinza);
   --sage: var(--marrom);
   --mint: var(--bege);
   --blush: var(--bege);
-  --mist: var(--cinza);
+  --mist: #fafafa;
   --sand: var(--bege);
   --sidebar: 15.5rem;
   --frame: clamp(1.1rem, 3vw, 2.4rem);
@@ -35,25 +36,25 @@
 
 body.dark {
   --ink: var(--areia);
-  --muted: var(--cinza);
-  --paper: var(--carvao);
-  --line: rgba(187, 177, 163, 0.38);
-  --card: #322a27;
-  --sheet: #2c2522;
-  --header: #211b19;
+  --muted: #b4b2b0;
+  --paper: #1c1b19;
+  --line: rgba(140, 134, 115, 0.35);
+  --card: #2a2825;
+  --sheet: #242220;
+  --header: #1c1b19;
   --shadow: none;
-  --cream: #322a27;
-  --sage: #3a332d;
-  --mint: #322a27;
-  --blush: #322a27;
-  --mist: #322a27;
-  --sand: #322a27;
+  --cream: #2a2825;
+  --sage: #3a3833;
+  --mint: #2a2825;
+  --blush: #2a2825;
+  --mist: #2a2825;
+  --sand: #2a2825;
   color-scheme: dark;
 }
 
 html.dark-pending,
 html.dark-pending body {
-  background: #261f1d;
+  background: #1c1b19;
 }
 
 [data-lang] { display: none; }
@@ -393,9 +394,10 @@ body.dark .theme-toggle .icon-moon { opacity: 0; transform: rotate(25deg) scale(
   max-width: 32rem;
   font-size: 1.02rem;
   line-height: 1.65;
-  color: var(--muted);
+  color: var(--ink);
+  opacity: 0.78;
 }
-.visit .lede { color: var(--ink); }
+.visit .lede { opacity: 0.78; }
 .hero-actions {
   display: flex;
   justify-content: center;
@@ -419,7 +421,8 @@ body.dark .theme-toggle .icon-moon { opacity: 0; transform: rotate(25deg) scale(
 .section-kicker {
   margin-top: 0.45rem;
   font-size: 0.98rem;
-  color: var(--muted);
+  color: var(--ink);
+  opacity: 0.72;
   max-width: 28rem;
 }
 
@@ -528,7 +531,7 @@ body.dark .theme-toggle .icon-moon { opacity: 0; transform: rotate(25deg) scale(
 .tone-sage { background: var(--sage); }
 .tone-mint { background: var(--bege); }
 .tone-blush { background: var(--bege); }
-.tone-mist { background: var(--cinza); }
+.tone-mist { background: var(--mist); }
 .tone-sand { background: var(--bege); }
 .bento-card.tone-sage { color: var(--areia); }
 .bento-card .eyebrow {
@@ -588,7 +591,8 @@ body.dark .statement { background: var(--card); }
   text-align: left;
   font-size: 1rem;
   line-height: 1.7;
-  color: var(--muted);
+  color: var(--ink);
+  opacity: 0.78;
 }
 
 .visit {
@@ -645,7 +649,8 @@ body.dark .visit {
   margin-top: 0.35rem;
   font-size: 0.95rem;
   line-height: 1.55;
-  color: var(--muted);
+  color: var(--ink);
+  opacity: 0.72;
 }
 
 /* ── Menu pages ── */
@@ -704,7 +709,8 @@ body.dark .sheet { border-color: var(--line); }
   grid-area: note;
   font-size: 0.96rem;
   line-height: 1.45;
-  color: var(--muted);
+  color: var(--ink);
+  opacity: 0.72;
 }
 .dish:not(:has(.dish-note)) { grid-template-areas: "name price"; }
 .dish-price {
