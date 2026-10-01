@@ -80,7 +80,7 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: "Readex Pro", sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 16px;
   line-height: 1.55;
   letter-spacing: 0;
@@ -180,7 +180,7 @@ body.dark .footer-brand img {
 .nav a {
   color: var(--ink);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 300;
   font-size: 0.78rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -190,7 +190,7 @@ body.dark .footer-brand img {
   opacity: 1;
 }
 .nav a:not(.is-current):not(.btn) { opacity: 0.72; }
-.nav a.is-current { font-weight: 650; }
+.nav a.is-current { font-weight: 300; }
 a.nav-visit { display: none; }
 .menu-block { scroll-margin-top: 1.5rem; }
 .info-top {
@@ -226,7 +226,7 @@ body.dark .lang-switch { background: transparent; }
   background: transparent;
   color: var(--muted);
   font-size: 0.68rem;
-  font-weight: 650;
+  font-weight: 300;
   letter-spacing: 0.12em;
   padding: 0.42rem 0.6rem;
   cursor: pointer;
@@ -307,7 +307,7 @@ body.dark .theme-toggle .icon-moon { opacity: 0; transform: rotate(25deg) scale(
   min-height: 44px;
   padding: 0.7rem 1.2rem;
   text-decoration: none;
-  font-weight: 560;
+  font-weight: 300;
   font-size: 0.74rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -359,7 +359,7 @@ body.dark .theme-toggle .icon-moon { opacity: 0; transform: rotate(25deg) scale(
   display: inline-block;
   margin-bottom: 1rem;
   font-size: 0.72rem;
-  font-weight: 620;
+  font-weight: 300;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--muted);
@@ -382,8 +382,21 @@ body.dark .theme-toggle .icon-moon { opacity: 0; transform: rotate(25deg) scale(
 .dish-name,
 .insight h3 {
   color: var(--ink);
-  font-weight: 500;
   letter-spacing: -0.02em;
+}
+.hero h1,
+.page-intro h1,
+.statement h2,
+.visit h2,
+.section-head h2,
+.block-title,
+.dish-name,
+.insight h3 {
+  font-weight: 500;
+}
+.bento-title,
+.pick-name {
+  font-weight: 300;
 }
 .hero h1 {
   font-size: clamp(2.5rem, 5.6vw, 4.6rem);
@@ -475,7 +488,7 @@ body.dark .theme-toggle .icon-moon { opacity: 0; transform: rotate(25deg) scale(
 }
 .pick-price {
   color: var(--ink);
-  font-weight: 560;
+  font-weight: 300;
   white-space: nowrap;
   letter-spacing: 0.02em;
   text-transform: none;
@@ -492,13 +505,13 @@ body.dark .theme-toggle .icon-moon { opacity: 0; transform: rotate(25deg) scale(
   gap: 1rem;
   width: max-content;
   animation: ticker 46s linear infinite;
-  font-weight: 520;
+  font-weight: 300;
   font-size: 0.78rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ink);
 }
-.ticker-track .dot { color: var(--muted); font-weight: 400; }
+.ticker-track .dot { color: var(--muted); font-weight: 300; }
 @keyframes ticker { to { transform: translateX(-50%); } }
 
 .section { margin-top: 5.2rem; }
@@ -717,12 +730,12 @@ body.dark .sheet { border-color: var(--line); }
   grid-area: price;
   justify-self: end;
   color: var(--ink);
-  font-weight: 560;
+  font-weight: 300;
   font-size: 1.05rem;
   letter-spacing: 0.02em;
   white-space: nowrap;
 }
-.currency { font-weight: 480; color: var(--muted); }
+.currency { font-weight: 300; color: var(--muted); }
 
 .dish:has(.dish-photo) {
   grid-template-columns: 104px minmax(0, 1fr) auto;
@@ -773,7 +786,7 @@ body.dark .pill {
   background: transparent;
   border-color: var(--line);
 }
-.pill-price { font-weight: 620; }
+.pill-price { font-weight: 300; }
 
 .info {
   display: grid;
@@ -791,12 +804,12 @@ body.dark .pill {
 .info-title {
   color: var(--ink);
   font-size: 1.24rem;
-  font-weight: 520;
+  font-weight: 500;
   letter-spacing: -0.02em;
   margin-bottom: 0.45rem;
 }
 .info-body { font-size: 1rem; line-height: 1.65; color: var(--muted); }
-.info-body strong { color: var(--ink); font-weight: 620; }
+.info-body strong { color: var(--ink); font-weight: 300; }
 .info-sub {
   margin-top: 1rem;
   padding-top: 1rem;
@@ -843,7 +856,7 @@ body.dark .social a:hover { background: rgba(235, 230, 220, 0.1); }
 .footer-label {
   margin-bottom: 0.75rem;
   font-size: 0.72rem;
-  font-weight: 650;
+  font-weight: 300;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
@@ -856,7 +869,7 @@ body.dark .social a:hover { background: rgba(235, 230, 220, 0.1); }
 .footer-links a {
   color: var(--ink);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 300;
   font-size: 0.92rem;
   border-bottom: 1px solid transparent;
   align-self: flex-start;
