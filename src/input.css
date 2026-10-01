@@ -162,7 +162,7 @@ main {
 }
 
 .brand img {
-  height: 24px;
+  height: 30px;
   width: auto;
 }
 body.dark .brand img,
@@ -212,6 +212,13 @@ a.nav-visit { display: none; }
   align-items: flex-start;
   gap: 0.85rem;
   margin-top: auto;
+}
+
+.header-lang-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
 }
 
 .lang-switch {
@@ -284,16 +291,9 @@ body.dark .theme-toggle .icon-moon { opacity: 0; transform: rotate(25deg) scale(
 .nav-toggle.is-open .nav-toggle-bars::before { top: 0; transform: rotate(45deg); }
 .nav-toggle.is-open .nav-toggle-bars::after { top: 0; transform: rotate(-45deg); }
 
-.header-social {
-  display: flex;
-  gap: 0.55rem;
+.header-social.social {
+  margin-top: 0;
 }
-.header-social a {
-  color: var(--ink);
-  opacity: 0.75;
-  text-decoration: none;
-}
-.header-social a:hover { opacity: 1; }
 
 .header-visit {
   width: 100%;
@@ -989,6 +989,8 @@ body.dark .split-feature { background: var(--paper); }
   gap: 0.35rem;
 }
 .split-feature-copy h2 {
+  font-family: "The Seasons", serif;
+  font-weight: 400;
   font-size: clamp(1.8rem, 3.2vw, 2.7rem);
   line-height: 1.12;
   max-width: 12em;
@@ -1021,6 +1023,12 @@ body.dark .split-feature { background: var(--paper); }
   text-align: center;
 }
 .section-head-center .section-kicker { margin-inline: auto; }
+#menu-heading {
+  font-family: "The Seasons", serif;
+  font-weight: 400;
+  font-size: clamp(1.9rem, 3.4vw, 2.8rem);
+  letter-spacing: -0.02em;
+}
 
 .story-split {
   display: grid;
@@ -1097,6 +1105,8 @@ body.dark .quote-slider { background: var(--card); }
   text-align: center;
 }
 .quote-copy h2 {
+  font-family: "The Seasons", serif;
+  font-weight: 400;
   font-size: clamp(1.45rem, 2.6vw, 2.1rem);
   line-height: 1.25;
 }
@@ -1304,7 +1314,7 @@ body.dark .quote-slider { background: var(--card); }
   .dish:has(.dish-photo):not(:has(.dish-note)) .dish-photo { height: 72px; }
   .dish-name { font-size: 1.1rem; }
   .pick-name { font-size: 1.15rem; }
-  .brand img { height: 20px; }
+  .brand img { height: 24px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
