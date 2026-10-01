@@ -667,6 +667,8 @@ body.dark .visit {
 /* ── Menu pages ── */
 .page-intro { padding: 1.6rem 0 1.7rem; }
 .page-intro h1 {
+  font-family: "The Seasons", serif;
+  font-weight: 400;
   font-size: clamp(2.4rem, 5.4vw, 4.1rem);
   line-height: 1.08;
   max-width: 14em;
@@ -691,6 +693,8 @@ body.dark .sheet { border-color: var(--line); }
   border-top: 1px solid var(--line);
 }
 .block-title {
+  font-family: "The Seasons", serif;
+  font-weight: 400;
   font-size: clamp(1.6rem, 2.8vw, 2.1rem);
   line-height: 1.08;
   margin-bottom: 0.85rem;
@@ -881,7 +885,7 @@ body.dark .social a:hover { background: rgba(235, 230, 220, 0.1); }
   margin-top: 2.2rem;
   padding-top: 1rem;
   border-top: 1px solid var(--line);
-  font-size: 0.84rem;
+  font-size: 12px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--muted);
@@ -957,6 +961,8 @@ body.dark .social a:hover { background: rgba(235, 230, 220, 0.1); }
 .band-soft { background: var(--cinza); }
 body.dark .band-soft { background: var(--card); }
 .manifesto h1 {
+  font-family: "The Seasons", serif;
+  font-weight: 400;
   font-size: clamp(2.2rem, 4.8vw, 3.8rem);
   line-height: 1.1;
   max-width: 14em;
@@ -1051,6 +1057,8 @@ body.dark .story-photo-inset { border-color: var(--paper); }
   justify-self: center;
 }
 .story-copy h2 {
+  font-family: "The Seasons", serif;
+  font-weight: 400;
   font-size: clamp(1.8rem, 3vw, 2.55rem);
   line-height: 1.12;
   margin: 0.35rem 0 1rem;
@@ -1143,6 +1151,8 @@ body.dark .quote-slider { background: var(--card); }
   max-width: 40rem;
 }
 .cta-banner-copy h2 {
+  font-family: "The Seasons", serif;
+  font-weight: 400;
   color: #fafafa;
   font-size: clamp(2rem, 4.5vw, 3.2rem);
   line-height: 1.1;
