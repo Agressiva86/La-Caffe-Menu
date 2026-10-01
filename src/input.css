@@ -1035,8 +1035,14 @@ body.dark .split-feature { background: var(--paper); }
 
 .find-section {
   margin-top: 0;
-  padding: clamp(3.5rem, 7vw, 5.5rem) 0;
+  padding: clamp(3.5rem, 7vw, 5.5rem) 20px;
   background: var(--paper);
+  box-sizing: border-box;
+}
+.find-section .wrap {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
 }
 .section-head-center {
   align-items: center;
