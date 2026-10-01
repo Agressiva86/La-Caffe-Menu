@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LaCaffé — menu TV</title>
+<link rel="stylesheet" href="../new/fonts/fonts.css">
+<link rel="stylesheet" href="tv.css">
+</head>
+<body>
+<div class="viewport">
+  <div class="board" id="board">
+
+    <section class="screen is-active" data-screen="1" aria-label="Kawa">
+      <div class="cols cols-3">
+        <div class="col">
+          <section class="group">
+            <h2>Kawy klasyczne</h2>
+            <div class="item"><p class="name">Espresso</p><p class="price">8<span>zł</span></p></div>
+            <div class="item"><p class="name">Espresso Macchiato</p><p class="price">9<span>zł</span></p></div>
+            <div class="item"><p class="name">Doppio</p><p class="price">10<span>zł</span></p></div>
+            <div class="item"><p class="name">Doppio Macchiato</p><p class="price">11<span>zł</span></p></div>
+            <div class="item"><p class="name">Americano</p><p class="note">małe / duże</p><p class="price">13 / 15<span>zł</span></p></div>
+            <div class="item"><p class="name">Cappuccino</p><p class="note">małe / duże</p><p class="price">14 / 16<span>zł</span></p></div>
+            <div class="item"><p class="name">Latte Macchiato</p><p class="price">16<span>zł</span></p></div>
+            <div class="item"><p class="name">Flat White</p><p class="price">17<span>zł</span></p></div>
+          </section>
+        </div>
+
+        <div class="col">
+          <section class="group">
+            <h2>Kawy na zimno</h2>
+            <div class="item"><p class="name">Espresso Tonic</p><p class="price">18<span>zł</span></p></div>
+            <div class="item"><p class="name">Espresso Tonic</p><p class="note">truskawka / pomarańcza</p><p class="price">20<span>zł</span></p></div>
+            <div class="item"><p class="name">Orange Freshpresso</p><p class="price">22<span>zł</span></p></div>
+            <div class="item"><p class="name">Iced Latte</p><p class="price">16<span>zł</span></p></div>
+            <div class="item"><p class="name">Iced Latte Dubaj</p><p class="price">23<span>zł</span></p></div>
+            <div class="item"><p class="name">Iced Latte</p><p class="note">ciasteczko</p><p class="price">23<span>zł</span></p></div>
+            <div class="item"><p class="name">Frappe</p><p class="price">18<span>zł</span></p></div>
+            <div class="item"><p class="name">Frappe</p><p class="note">smakowe</p><p class="price">20<span>zł</span></p></div>
+          </section>
+        </div>
+
+        <div class="col">
+          <section class="group">
+            <h2>Dodatki do kawy</h2>
+            <div class="item"><p class="name">Syrop smakowy</p><p class="price">2<span>zł</span></p></div>
+            <div class="item"><p class="name">Mleko</p><p class="price">1<span>zł</span></p></div>
+            <div class="item"><p class="name">Mleko bez laktozy</p><p class="price">2<span>zł</span></p></div>
+            <div class="item"><p class="name">Mleko owsiane</p><p class="price">3<span>zł</span></p></div>
+            <div class="item"><p class="name">Mleko migdałowe</p><p class="price">3<span>zł</span></p></div>
+            <div class="item"><p class="name">Mleko kokosowe</p><p class="price">3<span>zł</span></p></div>
+            <div class="item"><p class="name">Dodatkowe espresso</p><p class="price">2<span>zł</span></p></div>
+          </section>
+        </div>
+      </div>
+
+      <!--
+        Cztery kawy specjalne, jedyne pozycje ze zdjęciem.
+        Wgraj pliki do new/images/kawy-specjalne/ i uzupełnij nazwę oraz cenę.
+        1. pistacjowe.jpg — Pistacjowe Marzenie — 24 zł
+        2. specjalna-02.jpg
+        3. specjalna-03.jpg
+        4. specjalna-04.jpg
+      -->
+      <section class="sigs" aria-label="Kawy specjalne">
+        <h2>Kawy specjalne</h2>
+        <div class="sig-row">
+          <article class="sig">
+            <div class="sig-photo">
+              <img src="../new/images/kawy-specjalne/pistacjowe.jpg" alt="" onerror="this.remove()">
+            </div>
+            <div class="sig-meta">
+              <h3>Pistacjowe Marzenie</h3>
+              <p class="price">24<span>zł</span></p>
+            </div>
+          </article>
+          <article class="sig">
+            <div class="sig-photo">
+              <img src="../new/images/kawy-specjalne/specjalna-02.jpg" alt="" onerror="this.remove()">
+            </div>
+            <div class="sig-meta">
+              <h3></h3>
+              <p class="price"></p>
+            </div>
+          </article>
+          <article class="sig">
+            <div class="sig-photo">
+              <img src="../new/images/kawy-specjalne/specjalna-03.jpg" alt="" onerror="this.remove()">
+            </div>
+            <div class="sig-meta">
+              <h3></h3>
+              <p class="price"></p>
+            </div>
+          </article>
+          <article class="sig">
+            <div class="sig-photo">
+              <img src="../new/images/kawy-specjalne/specjalna-04.jpg" alt="" onerror="this.remove()">
+            </div>
+            <div class="sig-meta">
+              <h3></h3>
+              <p class="price"></p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </section>
+
+    <section class="screen" data-screen="2" aria-label="Napoje i gofry">
+      <div class="cols cols-4">
+        <div class="col">
+          <section class="group">
+            <h2>Matcha</h2>
+            <p class="sub">Na ciepło</p>
+            <div class="item"><p class="name">Latte Matcha</p><p class="price">20<span>zł</span></p></div>
+            <div class="item"><p class="name">Matcha UBE</p><p class="price">23<span>zł</span></p></div>
+            <p class="sub sub-next">Na zimno</p>
+            <div class="item"><p class="name">Iced Latte Matcha</p><p class="price">20<span>zł</span></p></div>
+            <div class="item"><p class="name">Iced Latte Matcha</p><p class="note">truskawka</p><p class="price">23<span>zł</span></p></div>
+            <div class="item"><p class="name">Iced Latte Matcha</p><p class="note">melon</p><p class="price">22<span>zł</span></p></div>
+            <div class="item"><p class="name">Iced Latte Matcha</p><p class="note">pomarańcza</p><p class="price">24<span>zł</span></p></div>
+            <div class="item"><p class="name">Iced Latte Matcha</p><p class="note">miód &amp; cytryna</p><p class="price">22<span>zł</span></p></div>
+            <div class="item"><p class="name">Iced Latte Matcha</p><p class="note">mango</p><p class="price">24<span>zł</span></p></div>
+          </section>
+        </div>
+
+        <div class="col">
+          <section class="group">
+            <h2>Herbaty</h2>
+            <div class="item"><p class="name">Ceylon</p><p class="price">14<span>zł</span></p></div>
+            <div class="item"><p class="name">Earl Grey</p><p class="price">15<span>zł</span></p></div>
+            <div class="item"><p class="name">Zielona Sencha</p><p class="price">16<span>zł</span></p></div>
+            <div class="item"><p class="name">Owocowa</p><p class="price">16<span>zł</span></p></div>
+            <div class="item"><p class="name">Mroźny wieczór</p><p class="price">17<span>zł</span></p></div>
+            <div class="item"><p class="name">Chai Vanilla</p><p class="price">18<span>zł</span></p></div>
+          </section>
+          <section class="group">
+            <h2>Czekolada</h2>
+            <div class="item"><p class="name">Biała</p><p class="price">13<span>zł</span></p></div>
+            <div class="item"><p class="name">Ciemna</p><p class="price">14<span>zł</span></p></div>
+          </section>
+        </div>
+
+        <div class="col">
+          <section class="group">
+            <h2>Lemoniady</h2>
+            <div class="item"><p class="name">Cytrynowa</p><p class="price">17<span>zł</span></p></div>
+            <div class="item"><p class="name">Marakuja</p><p class="price">19<span>zł</span></p></div>
+            <div class="item"><p class="name">Truskawka</p><p class="price">19<span>zł</span></p></div>
+            <div class="item"><p class="name">Tonic &amp; Kwiat Bzu</p><p class="price">20<span>zł</span></p></div>
+          </section>
+          <section class="group">
+            <h2>Soki naturalne</h2>
+            <div class="item"><p class="name">Pomarańcza</p><p class="price">18<span>zł</span></p></div>
+            <div class="item"><p class="name">Grejfrut</p><p class="price">20<span>zł</span></p></div>
+          </section>
+          <section class="group">
+            <h2>Woda z cytryną</h2>
+            <div class="item"><p class="name">0,33 l</p><p class="note">gazowana / niegazowana</p><p class="price">7<span>zł</span></p></div>
+            <div class="item"><p class="name">0,75 l</p><p class="note">gazowana / niegazowana</p><p class="price">18<span>zł</span></p></div>
+          </section>
+        </div>
+
+        <div class="col">
+          <section class="group">
+            <h2>Gofry</h2>
+            <div class="item"><p class="name">Suchy gofr</p><p class="price">11<span>zł</span></p></div>
+            <p class="sub sub-next">Dodatki</p>
+            <div class="item"><p class="name">Cukier puder</p><p class="price">1<span>zł</span></p></div>
+            <div class="item"><p class="name">Polewa</p><p class="price">2<span>zł</span></p></div>
+            <div class="item"><p class="name">Bita śmietana</p><p class="price">3<span>zł</span></p></div>
+            <div class="item"><p class="name">Posypka</p><p class="price">2<span>zł</span></p></div>
+            <div class="item"><p class="name">Owoce</p><p class="price">5<span>zł</span></p></div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+<script src="tv.js"></script>
+</body>
+</html>
