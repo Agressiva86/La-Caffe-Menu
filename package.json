@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tailwindcss -i src/input.css -o dist/style.css --minify",
-    "watch": "tailwindcss -i src/input.css -o dist/style.css --watch"
+    "watch": "tailwindcss -i src/input.css -o dist/style.css --watch",
+    "build:new": "tailwindcss -i new/src/input.css -o new/dist/style.css --minify",
+    "watch:new": "tailwindcss -i new/src/input.css -o new/dist/style.css --watch"
   },
   "repository": {
     "type": "git",
