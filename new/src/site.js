@@ -48,6 +48,7 @@
     nav.classList.toggle("is-open", open);
     navToggle.classList.toggle("is-open", open);
     navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    document.body.classList.toggle("nav-open", open);
   }
 
   if (navToggle) {
@@ -59,7 +60,7 @@
   if (nav) {
     nav.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", function () {
-        setNavOpen(false);
+        if (link.target === "_blank") setNavOpen(false);
       });
     });
   }
