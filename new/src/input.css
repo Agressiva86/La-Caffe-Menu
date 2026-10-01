@@ -622,6 +622,28 @@ body.dark .theme-toggle .icon-moon { opacity: 0; transform: rotate(25deg) scale(
   color: var(--marrom);
 }
 
+body.dark .bento-card.tone-cream { background: #2a2825; }
+body.dark .bento-card.tone-mint,
+body.dark .bento-card.tone-blush { background: #3a3833; }
+body.dark .bento-card.tone-mist { background: #242220; }
+body.dark .bento-card.tone-sage {
+  background: #eae9e6;
+  color: var(--carvao);
+}
+body.dark .bento-card.tone-sage .eyebrow,
+body.dark .bento-card.tone-sage .bento-title,
+body.dark .bento-card.tone-sage .bento-text {
+  color: var(--carvao);
+}
+body.dark .bento-card.tone-sage .btn {
+  border-color: var(--carvao);
+  color: var(--carvao);
+}
+body.dark .bento-card.tone-sage .btn:hover {
+  background: var(--carvao);
+  color: var(--areia);
+}
+
 .statement {
   margin-top: 5.8rem;
   text-align: center;
@@ -970,7 +992,7 @@ body.dark .social a:hover { background: rgba(235, 230, 220, 0.1); }
 .home-frame {
   width: 100%;
   margin: 0;
-  padding: 20px;
+  padding: 0;
   box-sizing: border-box;
 }
 .hero-carousel {
@@ -979,6 +1001,7 @@ body.dark .social a:hover { background: rgba(235, 230, 220, 0.1); }
   background: var(--bege);
   aspect-ratio: 16 / 10;
   overflow: hidden;
+  touch-action: pan-y;
 }
 .carousel-track { height: 100%; width: 100%; }
 .carousel-slide {
@@ -1017,7 +1040,7 @@ body.dark .social a:hover { background: rgba(235, 230, 220, 0.1); }
 
 .home-main .ticker {
   margin-top: 0;
-  border-block: 1px solid var(--line);
+  border-block: none;
 }
 
 .manifesto {
@@ -1283,6 +1306,9 @@ body.dark .quote-slider { background: var(--card); }
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
+  body:has(.home-main) .site-header {
+    border-bottom: 0;
+  }
   .header-inner {
     height: auto;
     flex-direction: row;
@@ -1374,13 +1400,13 @@ body.dark .quote-slider { background: var(--card); }
   }
   .home-frame {
     width: 100%;
-    padding: 20px;
+    padding: 0;
   }
 }
 
 @media (max-width: 640px) {
   .wrap { width: min(980px, calc(100% - 1.5rem)); }
-  main { padding-top: 1rem; }
+  main:not(.home-main) { padding-top: 1rem; }
   .dish:has(.dish-photo) {
     grid-template-columns: 76px minmax(0, 1fr) auto;
   }

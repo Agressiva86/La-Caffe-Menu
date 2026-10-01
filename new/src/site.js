@@ -104,6 +104,27 @@
       });
     });
 
+    var startX = 0;
+    var startY = 0;
+    var mobile = window.matchMedia("(max-width: 980px)");
+
+    root.addEventListener("touchstart", function (event) {
+      if (!mobile.matches || event.touches.length !== 1) return;
+      startX = event.touches[0].clientX;
+      startY = event.touches[0].clientY;
+    }, { passive: true });
+
+    root.addEventListener("touchend", function (event) {
+      if (!mobile.matches) return;
+      var touch = event.changedTouches[0];
+      if (!touch) return;
+      var dx = touch.clientX - startX;
+      var dy = touch.clientY - startY;
+      if (Math.abs(dx) < 48 || Math.abs(dx) <= Math.abs(dy)) return;
+      show(index + (dx < 0 ? 1 : -1));
+      play();
+    }, { passive: true });
+
     show(0);
     play();
   }
