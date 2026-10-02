@@ -69,13 +69,20 @@
     if (event.key === "Escape") setNavOpen(false);
   });
 
+  document.addEventListener("click", function (event) {
+    if (!document.body.classList.contains("nav-open")) return;
+    if (event.target.closest(".site-header")) return;
+    setNavOpen(false);
+  });
+
   window.addEventListener("resize", function () {
     if (window.innerWidth > 980) setNavOpen(false);
   });
 
   function initCarousel(root) {
     var slides = root.querySelectorAll(".carousel-slide");
-    var dots = root.querySelectorAll("[data-slide]");
+    var prev = root.querySelector("[data-carousel-prev]");
+    var nextBtn = root.querySelector("[data-carousel-next]");
     if (!slides.length) return;
     var index = 0;
     var timer;
@@ -84,9 +91,6 @@
       index = (next + slides.length) % slides.length;
       slides.forEach(function (slide, i) {
         slide.classList.toggle("is-active", i === index);
-      });
-      dots.forEach(function (dot, i) {
-        dot.classList.toggle("is-active", i === index);
       });
     }
 
@@ -97,33 +101,47 @@
       }, 4500);
     }
 
-    dots.forEach(function (dot) {
-      dot.addEventListener("click", function () {
-        show(Number(dot.getAttribute("data-slide")) || 0);
+    if (prev) {
+      prev.addEventListener("click", function () {
+        show(index - 1);
         play();
       });
-    });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener("click", function () {
+        show(index + 1);
+        play();
+      });
+    }
 
     var startX = 0;
     var startY = 0;
-    var mobile = window.matchMedia("(max-width: 980px)");
+    var tracking = false;
 
-    root.addEventListener("touchstart", function (event) {
-      if (!mobile.matches || event.touches.length !== 1) return;
-      startX = event.touches[0].clientX;
-      startY = event.touches[0].clientY;
-    }, { passive: true });
+    root.addEventListener("pointerdown", function (event) {
+      if (!event.isPrimary) return;
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      if (event.target.closest("button")) return;
+      tracking = true;
+      startX = event.clientX;
+      startY = event.clientY;
+      try { root.setPointerCapture(event.pointerId); } catch (e) {}
+    });
 
-    root.addEventListener("touchend", function (event) {
-      if (!mobile.matches) return;
-      var touch = event.changedTouches[0];
-      if (!touch) return;
-      var dx = touch.clientX - startX;
-      var dy = touch.clientY - startY;
+    function endSwipe(event) {
+      if (!tracking) return;
+      tracking = false;
+      var dx = event.clientX - startX;
+      var dy = event.clientY - startY;
       if (Math.abs(dx) < 48 || Math.abs(dx) <= Math.abs(dy)) return;
       show(index + (dx < 0 ? 1 : -1));
       play();
-    }, { passive: true });
+    }
+
+    root.addEventListener("pointerup", endSwipe);
+    root.addEventListener("pointercancel", function () {
+      tracking = false;
+    });
 
     show(0);
     play();
@@ -133,13 +151,15 @@
 
   document.querySelectorAll("[data-quote-slider]").forEach(function (root) {
     var slides = root.querySelectorAll(".quote-slide");
-    var next = root.querySelector("[data-quote-next]");
-    if (!slides.length || !next) return;
+    var nextButtons = root.querySelectorAll("[data-quote-next]");
+    if (!slides.length || !nextButtons.length) return;
     var index = 0;
-    next.addEventListener("click", function () {
-      index = (index + 1) % slides.length;
-      slides.forEach(function (slide, i) {
-        slide.classList.toggle("is-active", i === index);
+    nextButtons.forEach(function (next) {
+      next.addEventListener("click", function () {
+        index = (index + 1) % slides.length;
+        slides.forEach(function (slide, i) {
+          slide.classList.toggle("is-active", i === index);
+        });
       });
     });
   });
