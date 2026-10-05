@@ -598,6 +598,21 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
   .item:last-child {
     border-bottom: none;
   }
+  .item:has(.item-photo) {
+    align-items: center;
+  }
+  .item-photo {
+    width: 6.5rem;
+    height: 6.5rem;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  @media (max-width: 500px) {
+    .item-photo {
+      width: 4.75rem;
+      height: 4.75rem;
+    }
+  }
   .item-name {
     font-family: var(--font-sans);
     font-weight: 500;
