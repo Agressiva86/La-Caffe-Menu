@@ -5,7 +5,7 @@
   --marrom: #8c8673;
   --carvao: #32302b;
   --photo: #e3e1db;
-  color-scheme: light;
+  color-scheme: only light;
 }
 
 * { box-sizing: border-box; }
