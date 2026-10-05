@@ -174,8 +174,8 @@ h2 {
 
 .sig-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
 }
 
 .sig-photo {
@@ -216,7 +216,7 @@ h2 {
 .sig-meta h3 {
   font-family: "Readex Pro", sans-serif;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 1.15;
   letter-spacing: -0.015em;
 }
@@ -224,5 +224,6 @@ h2 {
 .sig-meta .price {
   grid-column: auto;
   grid-row: auto;
-  font-size: 24px;
+  font-size: 22px;
+  white-space: nowrap;
 }
