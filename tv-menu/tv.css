@@ -77,6 +77,8 @@ p, h2, h3 { margin: 0; }
 }
 
 .cols-3 { grid-template-columns: 1.15fr 1.15fr 0.9fr; }
+.cols-3-even { grid-template-columns: 1fr 1fr 1fr; }
+.cols-3-even .group + .group { margin-top: 48px; }
 .cols-4 { grid-template-columns: 1.15fr 0.85fr 0.95fr 0.85fr; }
 
 .col {
@@ -168,19 +170,25 @@ h2 {
 
 .sigs {
   flex: none;
-  margin-top: 18px;
+  margin-top: auto;
   padding-top: 16px;
 }
 
 .sig-row {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  flex-wrap: nowrap;
   gap: 16px;
+  width: 100%;
+}
+
+.sig {
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .sig-photo {
   position: relative;
-  height: 232px;
+  height: 220px;
   background: var(--photo);
   border: 1px solid var(--bege);
   overflow: hidden;
@@ -197,9 +205,12 @@ h2 {
   filter: drop-shadow(0 0 1px rgba(0, 0, 0, .9)) drop-shadow(0 1px 1px rgba(0, 0, 0, .55));
 }
 
-.sig-photo img {
+.sig-photo img:not(.ai-mark) {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  max-width: none;
   object-fit: cover;
   display: block;
 }
@@ -214,6 +225,8 @@ h2 {
 }
 
 .sig-meta h3 {
+  flex: 1;
+  min-width: 0;
   font-family: "Readex Pro", sans-serif;
   font-weight: 400;
   font-size: 20px;

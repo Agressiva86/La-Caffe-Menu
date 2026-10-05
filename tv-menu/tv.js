@@ -1,7 +1,7 @@
 (function () {
   var frame = document.getElementById("screen-frame");
   var board = document.getElementById("board");
-  var pages = ["kawa.html", "napoje.html"];
+  var pages = ["kawa.html?v=6", "napoje.html?v=6"];
 
   if (frame) {
     var params = new URLSearchParams(location.search);
