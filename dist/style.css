@@ -638,6 +638,7 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
     min-width: 0;
   }
   .sig-card .item-photo-wrap {
+    display: block;
     width: 100%;
     height: auto;
     aspect-ratio: 1 / 1;
@@ -660,6 +661,7 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
       gap: 1.15rem .8rem;
     }
     .sig-card .item-photo-wrap {
+      display: block;
       width: 100%;
       height: auto;
     }
