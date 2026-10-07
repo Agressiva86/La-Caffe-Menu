@@ -195,6 +195,46 @@ html.theme-transition *::after {
     border-bottom: 1px solid var(--color-border); gap: 1.5rem;
   }
   .item:last-child { border-bottom: none; }
+  .item:has(.item-photo) { align-items: center; }
+  .item-photo-wrap {
+    position: relative; flex-shrink: 0;
+    width: 6.5rem; height: 6.5rem;
+  }
+  .item-photo {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .ai-mark {
+    position: absolute; right: 4px; bottom: 4px;
+    width: 16px; height: 16px; display: block;
+    pointer-events: none;
+    filter: drop-shadow(0 0 1px rgba(0,0,0,.9)) drop-shadow(0 1px 1px rgba(0,0,0,.55));
+  }
+  @media (max-width: 500px) {
+    .item-photo-wrap { width: 4.75rem; height: 4.75rem; }
+  }
+
+  .sig-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem 1.4rem;
+  }
+  .sig-card { min-width: 0; }
+  .sig-card .item-photo-wrap {
+    display: block; width: 100%; height: auto; aspect-ratio: 1 / 1;
+  }
+  .sig-card .item-photo {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+  }
+  .sig-meta {
+    display: flex; justify-content: space-between;
+    align-items: baseline; gap: .75rem; margin-top: .7rem;
+  }
+  @media (max-width: 500px) {
+    .sig-grid { gap: 1.15rem .8rem; }
+    .sig-card .item-photo-wrap { display: block; width: 100%; height: auto; }
+    .sig-card .item-name { font-size: 16px; }
+  }
 
   .item-name {
     font-family: var(--font-sans);
