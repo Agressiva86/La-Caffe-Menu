@@ -3,13 +3,11 @@
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
-    --font-sans: "Barlow Condensed", sans-serif;
-    --font-serif: "Fraunces", serif;
+    --font-sans: "Readex Pro", sans-serif;
+    --font-serif: "The Seasons", serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --spacing: 0.25rem;
-    --text-base: 1rem;
-    --text-base--line-height: calc(1.5 / 1);
     --font-weight-light: 300;
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
@@ -174,6 +172,9 @@
   }
 }
 @layer utilities {
+  .fixed {
+    position: fixed;
+  }
   .relative {
     position: relative;
   }
@@ -212,6 +213,9 @@
   }
   .max-w-\[860px\] {
     max-width: 860px;
+  }
+  .transform {
+    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   }
   .resize {
     resize: both;
@@ -382,8 +386,8 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
     background: var(--color-bg);
     color: var(--color-body);
     font-family: var(--font-sans);
-    font-weight: 300;
-    line-height: 1.7;
+    font-weight: 400;
+    line-height: 1.5;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
   }
@@ -488,9 +492,9 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
     border: none;
     cursor: pointer;
     font-family: var(--font-sans);
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: .12em;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: .06em;
     text-transform: uppercase;
     color: var(--color-muted);
     padding: 1.1rem 1.3rem;
@@ -501,9 +505,9 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
   }
   @media (max-width: 500px) {
     .tab-btn {
-      font-size: 13px;
-      padding: 1rem .9rem;
-      letter-spacing: .08em;
+      font-size: 12px;
+      padding: 1rem .75rem;
+      letter-spacing: .04em;
     }
   }
   .tab-btn:hover {
@@ -566,8 +570,9 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
   .section-title {
     font-family: var(--font-serif);
     font-size: clamp(1.7rem, 4.5vw, 2.4rem);
-    font-weight: 300;
-    letter-spacing: .01em;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
     color: var(--color-heading);
     margin-bottom: 1.6rem;
     padding-bottom: .7rem;
@@ -582,6 +587,26 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
     width: 32px;
     height: 1px;
     background: var(--color-gold);
+  }
+  .section-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1.5rem;
+  }
+  .feature-photo {
+    position: relative;
+    display: block;
+    width: min(100%, 36rem);
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+  }
+  .feature-photo .item-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .items {
     display: flex;
@@ -621,7 +646,7 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
     height: 16px;
     display: block;
     pointer-events: none;
-    filter: drop-shadow(0 0 1px rgba(0, 0, 0, .9)) drop-shadow(0 1px 1px rgba(0, 0, 0, .55));
+    filter: drop-shadow(0 0 1px rgba(0,0,0,.9)) drop-shadow(0 1px 1px rgba(0,0,0,.55));
   }
   @media (max-width: 500px) {
     .item-photo-wrap {
@@ -671,48 +696,50 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
   }
   .item-name {
     font-family: var(--font-sans);
-    font-weight: 500;
+    font-weight: 400;
     font-size: 20px;
     color: var(--color-heading);
     flex: 1;
-    letter-spacing: .02em;
-    text-transform: uppercase;
+    letter-spacing: -0.015em;
+    text-transform: none;
+    line-height: 1.2;
   }
   .item-name small {
     display: block;
     font-weight: 300;
-    font-size: 18px;
+    font-size: 16px;
     color: var(--color-muted);
     margin-top: .2rem;
     font-style: normal;
-    letter-spacing: .01em;
+    letter-spacing: 0;
     text-transform: none;
   }
   .item-price {
     font-family: var(--font-sans);
-    font-weight: 600;
+    font-weight: 400;
     font-size: 20px;
     color: var(--color-price);
     white-space: nowrap;
     flex-shrink: 0;
-    letter-spacing: .03em;
+    letter-spacing: 0.01em;
+    font-variant-numeric: tabular-nums;
   }
   .item-price::after {
     content: ' zł';
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 0.8em;
+    font-weight: 300;
     color: var(--color-muted);
     font-family: var(--font-sans);
-    letter-spacing: .03em;
+    letter-spacing: 0.01em;
   }
   .lang-en .item-price::after {
     content: ' PLN';
   }
   .sub-label {
     font-family: var(--font-sans);
-    font-weight: 400;
-    font-size: 18px;
-    letter-spacing: .25em;
+    font-weight: 300;
+    font-size: 13px;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--color-muted);
     margin-bottom: .8rem;
@@ -756,10 +783,10 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
     border: 1px solid var(--color-border);
     padding: .5rem 1.1rem;
     font-family: var(--font-sans);
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: .1em;
-    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    text-transform: none;
     display: flex;
     align-items: center;
     gap: .6rem;
@@ -771,14 +798,14 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
   }
   .pill-price {
     font-family: var(--font-sans);
-    font-weight: 600;
-    font-size: 18px;
+    font-weight: 400;
+    font-size: 16px;
     color: var(--color-price);
   }
   .pill-price::after {
     content: ' zł';
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 0.8em;
+    font-weight: 300;
     color: var(--color-muted);
     font-family: var(--font-sans);
     text-transform: none;
@@ -794,10 +821,10 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
   }
   .info-card-title {
     font-family: var(--font-sans);
-    font-weight: 500;
+    font-weight: 400;
     font-size: 20px;
-    letter-spacing: .02em;
-    text-transform: uppercase;
+    letter-spacing: -0.015em;
+    text-transform: none;
     color: var(--color-heading);
     margin-bottom: .8rem;
   }
@@ -819,10 +846,10 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
   }
   .info-card-sub-title {
     font-family: var(--font-sans);
-    font-weight: 500;
+    font-weight: 400;
     font-size: 20px;
-    letter-spacing: .02em;
-    text-transform: uppercase;
+    letter-spacing: -0.015em;
+    text-transform: none;
     color: var(--color-heading);
     margin-bottom: .4rem;
     display: flex;
@@ -873,6 +900,26 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
     color: var(--color-gold);
   }
 }
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
+}
 @property --tw-border-style {
   syntax: "*";
   inherits: false;
@@ -889,6 +936,11 @@ html.theme-transition *, html.theme-transition *::before, html.theme-transition 
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
+      --tw-rotate-x: initial;
+      --tw-rotate-y: initial;
+      --tw-rotate-z: initial;
+      --tw-skew-x: initial;
+      --tw-skew-y: initial;
       --tw-border-style: solid;
       --tw-font-weight: initial;
       --tw-tracking: initial;
