@@ -186,6 +186,29 @@ h2 {
   min-width: 0;
 }
 
+.col .group:has(.sig) {
+  flex: none;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.col .sig {
+  flex: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.col .sig-photo {
+  flex: none;
+  height: 260px;
+}
+
+.col .sig.is-bare {
+  margin-bottom: 44px;
+}
+
 .sig-photo {
   position: relative;
   height: 220px;
@@ -213,6 +236,14 @@ h2 {
   max-width: none;
   object-fit: cover;
   display: block;
+}
+
+.sig-photo img.is-top {
+  object-position: center 48%;
+}
+
+.group.is-away {
+  display: none;
 }
 
 .sig-meta {
